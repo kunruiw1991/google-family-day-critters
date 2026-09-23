@@ -2,107 +2,240 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Family Day Critters" />
-  <title>Google Family Day × Smiling Critters Family Studio (Kunrui • Chuyu • Craig)</title>
+  <meta name="apple-mobile-web-app-title" content="Family Aero 1995" />
+  <title>Google Family Day × Smiling Critters Arcade Airplane Game & Studio (Kunrui • Chuyu • Craig)</title>
   <style>
     :root {
       --g-blue: #4285F4;
       --g-red: #EA4335;
       --g-yellow: #FBBC05;
       --g-green: #34A853;
-      --bg: #0f172a;
-      --card: #1e293b;
+      --bg: #070b14;
+      --card: #151f32;
       --text: #f8fafc;
       --muted: #cbd5e1;
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top, #1e293b, #090d16 75%);
+      background: radial-gradient(circle at top, #1e293b, #060911 75%);
       color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
     }
     header {
-      padding: 20px 18px 16px;
+      padding: 16px 16px 12px;
       text-align: center;
       border-bottom: 4px solid;
       border-image: linear-gradient(90deg, var(--g-blue), var(--g-red), var(--g-yellow), var(--g-green)) 1;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(7, 11, 20, 0.94);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
-      z-index: 30;
+      z-index: 50;
     }
-    .g-badge {
+    .nav-tabs {
       display: inline-flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
-      padding: 5px 14px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+    .tab-btn {
+      padding: 9px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.15s;
     }
-    h1 { margin: 0 0 6px; font-size: 1.55rem; }
-    .subtitle { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #f97316, #ec4899, #8b5cf6);
+      border-color: #facc15;
+      box-shadow: 0 0 18px rgba(250, 204, 21, 0.45);
+    }
+    h1 { margin: 0 0 4px; font-size: 1.45rem; }
+    .subtitle { margin: 0; color: var(--muted); font-size: 0.88rem; }
     .container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 22px 18px 48px;
+      padding: 18px 14px 56px;
     }
-    .roster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+
+    /* ARCADE CABINET SECTION */
+    .arcade-shell {
+      background: linear-gradient(180deg, #1a103c 0%, #090d18 100%);
+      border: 3px solid #facc15;
+      border-radius: 24px;
+      padding: 18px;
       margin-bottom: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.65), inset 0 0 30px rgba(168,85,247,0.2);
     }
-    .member-card {
-      background: var(--card);
-      border-radius: 18px;
-      padding: 16px;
-      border: 2px solid rgba(255,255,255,0.12);
+    .arcade-marquee {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #3b0764, #7c2d12, #1e3a8a);
+      border: 2px solid rgba(250, 204, 21, 0.65);
+      margin-bottom: 14px;
+    }
+    .marquee-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #fef08a;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+    }
+    .pilot-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 820px) {
+      .pilot-selector { grid-template-columns: repeat(2, 1fr); }
+    }
+    .pilot-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      padding: 10px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
     }
-    .member-card.mom { border-color: #f97316; }
-    .member-card.child { border-color: #a855f7; }
-    .member-card.dad { border-color: #22c55e; }
-    .member-card img {
-      width: 92px;
-      height: 92px;
-      border-radius: 14px;
+    .pilot-card:hover, .pilot-card.active {
+      border-color: #facc15;
+      background: linear-gradient(135deg, rgba(249,115,22,0.28), rgba(168,85,247,0.32));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(250,204,21,0.25);
+    }
+    .pilot-card img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
       object-fit: cover;
-      border: 2px solid rgba(255,255,255,0.2);
+      border: 2px solid #facc15;
+      flex-shrink: 0;
     }
-    .role-tag {
-      font-size: 0.72rem;
+    .pilot-info h4 { margin: 0 0 2px; font-size: 0.88rem; color: #fff; }
+    .pilot-info p { margin: 0; font-size: 0.73rem; color: #fde047; line-height: 1.25; }
+
+    .arcade-stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .arcade-stage-grid { grid-template-columns: 1fr; }
+    }
+    .game-viewport {
+      position: relative;
+      background: #04070e;
+      border-radius: 18px;
+      border: 3px solid #38bdf8;
+      overflow: hidden;
+      box-shadow: 0 0 28px rgba(56, 189, 248, 0.35);
+      display: flex;
+      justify-content: center;
+    }
+    #shmup-canvas {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      display: block;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .touch-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .arcade-btn {
+      flex: 1;
+      min-width: 125px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.25);
       font-weight: 800;
-      padding: 3px 9px;
-      border-radius: 999px;
-      display: inline-block;
-      margin-bottom: 4px;
+      font-size: 0.9rem;
+      color: #fff;
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      transition: transform 0.1s;
     }
-    .mom .role-tag { background: #f97316; color: #fff; }
-    .child .role-tag { background: #a855f7; color: #fff; }
-    .dad .role-tag { background: #22c55e; color: #052e16; }
+    .arcade-btn:active { transform: scale(0.95); }
+    .arcade-btn.bomb { background: linear-gradient(135deg, #ef4444, #f97316); border-color: #fde047; }
+    .arcade-btn.ducky { background: linear-gradient(135deg, #eab308, #ca8a04); color: #1e293b; border-color: #fef08a; }
+    .arcade-btn.stage { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+    .arcade-btn.coin { background: linear-gradient(135deg, #10b981, #059669); }
+
+    .arcade-sidebar {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 10px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .stage-pill {
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 6px;
+    }
+    .stage-pill.active {
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      border-color: #facc15;
+    }
+
+    /* STUDIO & GALLERY SECTIONS */
     .studio-panel {
       background: var(--card);
       border-radius: 22px;
-      padding: 22px;
+      padding: 20px;
       border: 1px solid rgba(255,255,255,0.15);
       margin-bottom: 28px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
     }
     .studio-layout {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 330px;
       gap: 20px;
       align-items: start;
     }
@@ -112,76 +245,48 @@
     .canvas-box {
       background: #090d16;
       border-radius: 16px;
-      padding: 12px;
+      padding: 10px;
       text-align: center;
       border: 2px dashed rgba(255,255,255,0.2);
     }
-    canvas {
+    #merger-canvas {
       max-width: 100%;
       height: auto;
       border-radius: 12px;
       touch-action: none;
       cursor: grab;
     }
-    .controls-col {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
     .ctrl-group {
-      background: rgba(15, 23, 42, 0.7);
-      padding: 14px;
+      background: rgba(15, 23, 42, 0.75);
+      padding: 12px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 10px;
     }
-    .ctrl-group h3 {
-      margin: 0 0 10px;
-      font-size: 0.95rem;
-      color: #facc15;
-    }
+    .ctrl-group h3 { margin: 0 0 8px; font-size: 0.9rem; color: #facc15; }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 10px 14px;
+      padding: 9px 12px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.18);
       background: rgba(255,255,255,0.08);
       color: #fff;
       font-weight: 600;
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       cursor: pointer;
-      transition: all 0.15s;
       text-decoration: none;
     }
-    .btn:hover, .btn.active {
-      background: linear-gradient(135deg, var(--g-blue), #8b5cf6);
-      border-color: #93c5fd;
-    }
-    .btn.upload-btn {
-      background: linear-gradient(135deg, var(--g-red), #f97316);
-      border: none;
-      width: 100%;
-      padding: 12px;
-      font-size: 0.95rem;
-    }
-    .btn.download-btn {
-      background: linear-gradient(135deg, var(--g-green), #059669);
-      border: none;
-      width: 100%;
-      padding: 12px;
-      font-size: 0.95rem;
-    }
-    .btn-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .btn.active, .btn:hover { background: linear-gradient(135deg, var(--g-blue), #8b5cf6); }
+    .btn.upload-btn { background: linear-gradient(135deg, var(--g-red), #f97316); width: 100%; padding: 11px; }
+    .btn.download-btn { background: linear-gradient(135deg, var(--g-green), #059669); width: 100%; padding: 11px; }
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
+      gap: 16px;
     }
     .art-card {
       background: var(--card);
@@ -189,66 +294,121 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.14);
     }
-    .art-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-    }
+    .art-card img { width: 100%; height: 240px; object-fit: cover; display: block; }
     .art-meta { padding: 14px; }
-    .art-meta h4 { margin: 0 0 6px; font-size: 1rem; }
-    .art-meta p { margin: 0 0 12px; font-size: 0.83rem; color: var(--muted); }
+    .art-meta h4 { margin: 0 0 6px; font-size: 0.96rem; }
+    .art-meta p { margin: 0 0 10px; font-size: 0.82rem; color: var(--muted); }
   </style>
 </head>
 <body>
   <header>
-    <div class="g-badge">🔵🔴🟡🟢 GOOGLE FAMILY DAY × SMILING CRITTERS</div>
-    <h1>Our Real-World Family ↔ Smiling Critters Merger Studio</h1>
-    <p class="subtitle">☀️ <b>SunnyFox</b> (Kunrui, Mom) • 🌙 <b>LunaBat</b> (Chuyu, Daughter) • 🍿 <b>PoppyDash</b> (Craig, Dad)</p>
+    <h1>✈️🕹️ Google Family Day × Smiling Critters Arcade Fighter &amp; Studio</h1>
+    <p class="subtitle">☀️ <b>SunnyFox</b> (Kunrui • Mom) • 🌙 <b>LunaBat</b> (Chuyu • Daughter) • 🍿 <b>PoppyDash</b> (Craig • Dad)</p>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="document.getElementById('arcade-sec').scrollIntoView({behavior:'smooth'})">🕹️ Play 1995 Arcade Airplane Game (飞行射击)</button>
+      <button class="tab-btn" onclick="document.getElementById('merger-sec').scrollIntoView({behavior:'smooth'})">📸 Family Photo Merger Studio</button>
+      <button class="tab-btn" onclick="document.getElementById('gallery-sec').scrollIntoView({behavior:'smooth'})">🖼️ 10 Family Day Portraits</button>
+    </div>
   </header>
 
   <div class="container">
-    <div class="roster-grid">
-      <div class="member-card mom">
-        <img src="images/sunnyfox.jpg" alt="SunnyFox Mom" />
-        <div>
-          <span class="role-tag">KUNRUI • MOM</span>
-          <h3 style="margin:2px 0 4px;">SunnyFox (LanternFox)</h3>
-          <div style="font-size:0.82rem;color:#cbd5e1;">Golden-Orange Plush Fox • Glowing Lantern Pendant • Guides the family & captures every memory!</div>
+    <!-- SECTION 1: 1985-2000 CLASSIC VERTICAL ARCADE SHOOT-'EM-UP GAME -->
+    <section class="arcade-shell" id="arcade-sec">
+      <div class="arcade-marquee">
+        <div class="marquee-title">🕹️ SMILING CRITTERS AERO FIGHTERS '95 — CAMP GOOGLE &amp; LAKE TAHOE EDITION (一币通关街机飞行射击)</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button class="btn active" id="audio-toggle" onclick="toggleAudio()">🔊 Arcade BGM &amp; SFX: ON</button>
+          <button class="btn active" id="god-toggle" onclick="toggleKidShield()">🐤 Kid Ducky-Shield (1CC Mode): ON</button>
         </div>
       </div>
-      <div class="member-card child">
-        <img src="images/lunabat.jpg" alt="LunaBat Chuyu" />
-        <div>
-          <span class="role-tag">CHUYU • DAUGHTER</span>
-          <h3 style="margin:2px 0 4px;">LunaBat (StarBat)</h3>
-          <div style="font-size:0.82rem;color:#cbd5e1;">Indigo-Violet Plush Bat • Quilted Wings & Moon-Star Charm • Google Propeller Hat & Rainbow Balloons!</div>
-        </div>
-      </div>
-      <div class="member-card dad">
-        <img src="images/poppydash.jpg" alt="PoppyDash Craig" />
-        <div>
-          <span class="role-tag">CRAIG • DAD</span>
-          <h3 style="margin:2px 0 4px;">PoppyDash (Popcorn Skunk)</h3>
-          <div style="font-size:0.82rem;color:#cbd5e1;">Charcoal & White Skunk • Golden Popcorn Pendant • Loves Popcorn & Running (Needs Floaties to Swim!)</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="studio-panel">
-      <h2 style="margin:0 0 6px;">📸 Interactive Real-Photo + Smiling Critters Family Merger</h2>
-      <p style="margin:0 0 16px;color:var(--muted);font-size:0.9rem;">
-        Upload any real-world Google Family Day photo of <b>Kunrui, Chuyu &amp; Craig</b> from your iPad/phone/desktop to merge side-by-side or overlay with <b>SunnyFox, LunaBat &amp; PoppyDash</b>! Drag characters on the canvas to position them.
+      <!-- 4 PLAYABLE PILOTS (OR FULL FAMILY SQUADRON) -->
+      <div class="pilot-selector">
+        <div class="pilot-card active" onclick="selectPilot(0, this)">
+          <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Family Squadron" />
+          <div class="pilot-info">
+            <h4>✈️ FAMILY TRIO SQUADRON (合体战机)</h4>
+            <p>Kunrui + Chuyu + Craig flying the Camp Google Jet! Fires Lantern Beams + Moon Missiles + Popcorn!</p>
+          </div>
+        </div>
+        <div class="pilot-card" onclick="selectPilot(1, this)">
+          <img src="images/sunnyfox.jpg" alt="SunnyFox Mom" />
+          <div class="pilot-info">
+            <h4>☀️ SUNNYFOX (Kunrui • Mom)</h4>
+            <p>Weapon: Golden Lantern 5-Way Sunburst Laser • Bomb: VIP Mom Camera Flash!</p>
+          </div>
+        </div>
+        <div class="pilot-card" onclick="selectPilot(2, this)">
+          <img src="images/lunabat.jpg" alt="LunaBat Chuyu" />
+          <div class="pilot-info">
+            <h4>🌙 LUNABAT (Chuyu • Daughter)</h4>
+            <p>Weapon: Peace-Sign (✌️) Auto-Homing Moon Missiles • Bomb: StarBat Supernova!</p>
+          </div>
+        </div>
+        <div class="pilot-card" onclick="selectPilot(3, this)">
+          <img src="images/poppydash.jpg" alt="PoppyDash Craig" />
+          <div class="pilot-info">
+            <h4>🍿 POPPYDASH (Craig • Dad)</h4>
+            <p>Weapon: Turbo Popcorn Gatling + Sprint Speed • Shortcoming: Needs Ducky Ring over Water!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arcade-stage-grid">
+        <div>
+          <div class="game-viewport">
+            <canvas id="shmup-canvas" width="600" height="800"></canvas>
+          </div>
+          <div class="touch-bar">
+            <button class="arcade-btn bomb" onclick="triggerBomb()">💥 SUPER FAMILY BOMB (全屏必杀技)</button>
+            <button class="arcade-btn ducky" onclick="triggerDuckyRing()">🐤 DEPLOY CRAIG'S DUCKY FLOATIE (防落水护盾)</button>
+            <button class="arcade-btn coin" onclick="insertCoinPowerup()">🪙 INSERT COIN (+MAX POWER LV.5)</button>
+          </div>
+        </div>
+
+        <div class="arcade-sidebar">
+          <h3 style="margin:0;color:#facc15;">🏆 1995 ARCADE TELEMETRY</h3>
+          <div class="stat-row"><span>1UP SCORE</span><span id="hud-score" style="color:#fef08a;">000000</span></div>
+          <div class="stat-row"><span>COMBO CHAIN</span><span id="hud-combo" style="color:#f472b6;">x1 HIT!</span></div>
+          <div class="stat-row"><span>WEAPON POWER</span><span id="hud-power" style="color:#4ade80;">LV.3 (POPCORN + LANTERN)</span></div>
+          <div class="stat-row"><span>BOMB STOCK</span><span id="hud-bombs">🍿 🌙 ☀️ (3)</span></div>
+          <div class="stat-row"><span>TAIL DRY STATUS</span><span id="hud-tail" style="color:#38bdf8;">🐤 DRY (FLOATIE READY!)</span></div>
+
+          <h3 style="margin:6px 0 2px;color:#facc15;">🗺️ SELECT ARCADE STAGE (4大关卡)</h3>
+          <button class="stage-pill active" id="st-btn-0" onclick="setStage(0)">STAGE 1: 🚌 Blue Shuttle Bus Highway → Googleplex</button>
+          <button class="stage-pill" id="st-btn-1" onclick="setStage(1)">STAGE 2: 🌲 Camp Google Redwoods &amp; Lake Tahoe (Water Hazard!)</button>
+          <button class="stage-pill" id="st-btn-2" onclick="setStage(2)">STAGE 3: 🌉 Golden Gate Bridge ✈️ Boston Starlight Sky</button>
+          <button class="stage-pill" id="st-btn-3" onclick="setStage(3)">STAGE 4: 🎡 Google Family Day Boss Rush Finale (1CC!)</button>
+
+          <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;background:rgba(0,0,0,0.35);padding:10px;border-radius:10px;">
+            <b>🕹️ How to Play (iPad / Phone / Desktop):</b><br/>
+            • <b>Touch &amp; Drag</b> anywhere on the game screen (or use <b>Arrow Keys / WASD / Mouse</b>) to fly your fighter jet!<br/>
+            • <b>Auto-Fire</b> is always active! Collect <b>[P] Power Cubes</b>, <b>[🍿] Popcorn</b>, and <b>[🐤] Ducky Rings</b>.<br/>
+            • In <b>Stage 2 (Lake Tahoe)</b>, watch out for water splashes—Dad <b>PoppyDash</b> hates swimming, so his <b>Yellow Rubber-Ducky Swim Ring</b> inflates to bounce water waves away!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE REAL-PHOTO + SMILING CRITTERS MERGER STUDIO -->
+    <div class="studio-panel" id="merger-sec">
+      <h2 style="margin:0 0 6px;">📸 Interactive Real-Photo + Smiling Critters Family Merger Studio</h2>
+      <p style="margin:0 0 14px;color:var(--muted);font-size:0.88rem;">
+        Pre-loaded with your real <b>Camp Google Handcar</b> &amp; <b>Blue Shuttle Selfie</b> photos! Drag the <b>SunnyFox (Kunrui)</b>, <b>LunaBat (Chuyu)</b>, and <b>PoppyDash (Craig)</b> badges anywhere on the card.
       </p>
       <div class="studio-layout">
         <div class="canvas-box">
           <canvas id="merger-canvas" width="1200" height="720"></canvas>
         </div>
-        <div class="controls-col">
+        <div>
           <div class="ctrl-group">
-            <h3>1. Choose Your Real Family Day Photo</h3>
+            <h3>1. Switch Real Family Photo or Upload New</h3>
+            <div class="btn-grid" style="margin-bottom:8px;">
+              <button class="btn active" onclick="loadPresetReal('images/real_camp_google_handcar.jpg', this)">🌲 Camp Google Photo</button>
+              <button class="btn" onclick="loadPresetReal('images/real_shuttle_selfie.jpg', this)">🚌 Blue Shuttle Selfie</button>
+            </div>
             <label class="btn upload-btn">
-              📂 Select Real Family Photo (iPad / Phone / Mac)
+              📂 Or Select Another Photo (iPad / Phone)
               <input type="file" id="photo-input" accept="image/*" style="display:none;" />
             </label>
           </div>
@@ -256,134 +416,850 @@
             <h3>2. Choose Merger Layout Mode</h3>
             <div class="btn-grid">
               <button class="btn active" onclick="setMode('split', this)">🪪 Split Mirror Card</button>
-              <button class="btn" onclick="setMode('overlay', this)">✨ Critters in Photo</button>
-              <button class="btn" onclick="setMode('roster', this)">🎴 3-Critter Family</button>
-              <button class="btn" onclick="setMode('gbike', this)">🚲 Google Gbike</button>
+              <button class="btn" onclick="setMode('overlay', this)">✨ Full Critter Scene</button>
             </div>
           </div>
           <div class="ctrl-group">
-            <h3>3. Choose Scene Background</h3>
+            <h3>3. Switch Merged Critter Scene</h3>
             <div class="btn-grid">
-              <button class="btn active" onclick="setBg(0, this)">🎈 Welcome Arch</button>
-              <button class="btn" onclick="setBg(1, this)">🏁 Carnival Race</button>
-              <button class="btn" onclick="setBg(2, this)">🚲 Gbike Ride</button>
-              <button class="btn" onclick="setBg(3, this)">🃏 Collector Cards</button>
+              <button class="btn active" onclick="setBg(0, this)">🌲 Handcar Critters</button>
+              <button class="btn" onclick="setBg(1, this)">🤝 Real + Critters</button>
+              <button class="btn" onclick="setBg(2, this)">🚌 Shuttle Critters</button>
+              <button class="btn" onclick="setBg(3, this)">✌️ Shuttle + Plush</button>
             </div>
           </div>
           <div class="ctrl-group">
-            <h3>4. Export Commemorative Card</h3>
+            <h3>4. Save Commemorative Family Card</h3>
             <button class="btn download-btn" onclick="downloadCard()">⬇️ Save Merged Family Card (PNG)</button>
           </div>
         </div>
       </div>
     </div>
 
-    <h2 style="margin:0 0 14px;">🎨 Google Family Day × Smiling Critters Scenes</h2>
+    <!-- SECTION 3: ALL 10 GOOGLE FAMILY DAY PORTRAITS -->
+    <h2 style="margin:0 0 14px;" id="gallery-sec">🖼️ All 10 Camp Google &amp; Family Day Merged Portraits</h2>
     <div class="gallery-grid">
       <div class="art-card" style="border:2px solid #facc15;">
-        <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Camp Google Handcar (Critter Transformation) — PoppyDash (Craig), LunaBat (Chuyu) & SunnyFox (Kunrui) in Exact Outfits" style="height:260px;" />
+        <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Camp Google Handcar Critter Transformation" />
         <div class="art-meta">
-          <h4>🌟 Camp Google Handcar (Critter Transformation)</h4>
-          <p>PoppyDash (Craig), LunaBat (Chuyu) & SunnyFox (Kunrui) in Exact Outfits</p>
+          <h4>🌟 #113 Camp Google Handcar (Full Critter Transformation)</h4>
+          <p>PoppyDash (Craig in sunglasses &amp; backpack), LunaBat (Chuyu with bangs &amp; white tee), and SunnyFox (Kunrui in white cardigan &amp; floral dress).</p>
           <a class="btn" href="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" download>⬇️ Download High-Res</a>
         </div>
       </div>
       <div class="art-card" style="border:2px solid #facc15;">
-        <img src="images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg" alt="Camp Google Handcar (Real Family + 3D Critters) — Craig, Chuyu & Kunrui with PoppyDash, LunaBat & SunnyFox" style="height:260px;" />
+        <img src="images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg" alt="Camp Google Handcar Real + Critters" />
         <div class="art-meta">
-          <h4>🌟 Camp Google Handcar (Real Family + 3D Critters)</h4>
-          <p>Craig, Chuyu & Kunrui with PoppyDash, LunaBat & SunnyFox</p>
+          <h4>🌟 #114 Camp Google Handcar (Real Family + 3D Critters)</h4>
+          <p>Craig, Chuyu &amp; Kunrui on the Camp Google railroad handcar joined by life-size PoppyDash (with ducky ring &amp; popcorn), LunaBat &amp; SunnyFox!</p>
           <a class="btn" href="images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg" download>⬇️ Download High-Res</a>
         </div>
       </div>
       <div class="art-card" style="border:2px solid #facc15;">
-        <img src="images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg" alt="Blue Shuttle Bus Selfie (Critter Transformation) — Craig (PoppyDash), Chuyu (LunaBat Peace Sign) & Kunrui (SunnyFox)" style="height:260px;" />
+        <img src="images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg" alt="Blue Shuttle Bus Selfie Critter Transformation" />
         <div class="art-meta">
-          <h4>🌟 Blue Shuttle Bus Selfie (Critter Transformation)</h4>
-          <p>Craig (PoppyDash), Chuyu (LunaBat Peace Sign) & Kunrui (SunnyFox)</p>
+          <h4>🌟 #115 Blue Shuttle Bus Selfie (Critter Transformation)</h4>
+          <p>Craig as PoppyDash holding popcorn, Chuyu as LunaBat making her exact scrunch-nose face &amp; peace sign (✌️), and Kunrui as SunnyFox taking the selfie!</p>
           <a class="btn" href="images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg" download>⬇️ Download High-Res</a>
         </div>
       </div>
       <div class="art-card" style="border:2px solid #facc15;">
-        <img src="images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg" alt="Blue Shuttle Bus Selfie (Real Family + 3D Plush Critters) — Craig, Chuyu & Kunrui with Shoulder Companions" style="height:260px;" />
+        <img src="images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg" alt="Blue Shuttle Bus Selfie Real + Critters" />
         <div class="art-meta">
-          <h4>🌟 Blue Shuttle Bus Selfie (Real Family + 3D Plush Critters)</h4>
-          <p>Craig, Chuyu & Kunrui with Shoulder Companions</p>
+          <h4>🌟 #116 Blue Shuttle Bus Selfie (Real Family + Plush Companions)</h4>
+          <p>Your real shuttle selfie with plush PoppyDash sharing popcorn on Craig's lap, LunaBat flashing a peace sign above Chuyu, and SunnyFox on Kunrui's shoulder!</p>
           <a class="btn" href="images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg" download>⬇️ Download High-Res</a>
         </div>
       </div>
       <div class="art-card" style="border:2px solid #facc15;">
-        <img src="images/117_Camp_Google_Lake_Tahoe_Popcorn_Sprint_Swim_Floaties.jpg" alt="Camp Google × Lake Tahoe — Dad PoppyDash Sprinting with Popcorn & Floaties + SunnyFox & LunaBat on Handcar" style="height:260px;" />
+        <img src="images/117_Camp_Google_Lake_Tahoe_Popcorn_Sprint_Swim_Floaties.jpg" alt="Camp Google Lake Tahoe Popcorn Sprint" />
         <div class="art-meta">
-          <h4>🌟 Camp Google × Lake Tahoe</h4>
-          <p>Dad PoppyDash Sprinting with Popcorn & Floaties + SunnyFox & LunaBat on Handcar</p>
+          <h4>🌟 #117 Camp Google × Lake Tahoe (Running vs. Swimming!)</h4>
+          <p>Dad PoppyDash sprints beside Lake Tahoe eating popcorn while wearing dual rubber-ducky floaties &amp; a popcorn ring as SunnyFox &amp; LunaBat cheer on the handcar!</p>
           <a class="btn" href="images/117_Camp_Google_Lake_Tahoe_Popcorn_Sprint_Swim_Floaties.jpg" download>⬇️ Download High-Res</a>
         </div>
       </div>
       <div class="art-card" style="border:2px solid #facc15;">
-        <img src="images/118_Camp_Google_3Panel_Family_Outfit_Showcase.jpg" alt="Camp Google Family Day 3-Panel Outfit Showcase — SunnyFox (Kunrui), LunaBat (Chuyu) & PoppyDash (Craig)" style="height:260px;" />
+        <img src="images/118_Camp_Google_3Panel_Family_Outfit_Showcase.jpg" alt="Camp Google 3-Panel Outfit Showcase" />
         <div class="art-meta">
-          <h4>🌟 Camp Google Family Day 3-Panel Outfit Showcase</h4>
-          <p>SunnyFox (Kunrui), LunaBat (Chuyu) & PoppyDash (Craig)</p>
+          <h4>🌟 #118 Camp Google 3-Panel Family Outfit Showcase</h4>
+          <p>Redwood Camp Google display board featuring SunnyFox (Kunrui), LunaBat (Chuyu), and PoppyDash (Craig) in their exact Family Day outfits.</p>
           <a class="btn" href="images/118_Camp_Google_3Panel_Family_Outfit_Showcase.jpg" download>⬇️ Download High-Res</a>
-        </div>
-      </div>
-      <div class="art-card">
-        <img src="images/family_day_01_welcome_arch.jpg" alt="Google Family Day Welcome Arch" />
-        <div class="art-meta">
-          <h4>1. Welcome to Google Family Day!</h4>
-          <p><b>SunnyFox (Kunrui - Mom)</b>, <b>LunaBat (Chuyu)</b>, and <b>PoppyDash (Craig - Dad)</b> hugging under the 4-color Google balloon arch with VIP lanyards and fresh popcorn.</p>
-          <a class="btn" href="images/family_day_01_welcome_arch.jpg" download>⬇️ Download High-Res</a>
-        </div>
-      </div>
-      <div class="art-card">
-        <img src="images/family_day_02_carnival_race.jpg" alt="Google Family Day Carnival Race" />
-        <div class="art-meta">
-          <h4>2. Family Day Carnival &amp; Sack Race</h4>
-          <p>Dad <b>PoppyDash (Craig)</b> shows off his running hobby tossing golden popcorn while <b>LunaBat (Chuyu)</b> glides with a Google lollipop and Mom <b>SunnyFox (Kunrui)</b> snaps the photo!</p>
-          <a class="btn" href="images/family_day_02_carnival_race.jpg" download>⬇️ Download High-Res</a>
-        </div>
-      </div>
-      <div class="art-card">
-        <img src="images/family_day_03_gbike_ride.jpg" alt="Google Family Day Gbike Ride" />
-        <div class="art-meta">
-          <h4>3. Tandem Google Gbike Campus Ride</h4>
-          <p>Mom <b>SunnyFox</b> steers, <b>LunaBat (Chuyu)</b> waves the Google flag in the middle, and Dad <b>PoppyDash</b> pedals in back with his popcorn bucket &amp; ducky swim ring!</p>
-          <a class="btn" href="images/family_day_03_gbike_ride.jpg" download>⬇️ Download High-Res</a>
-        </div>
-      </div>
-      <div class="art-card">
-        <img src="images/family_day_04_collector_roster.jpg" alt="Smiling Critters Family Collector Roster" />
-        <div class="art-meta">
-          <h4>4. Official Family Collector Cards</h4>
-          <p>Side-by-side Google Family Day trading cards for <b>SUNNYFOX — KUNRUI (MOM)</b>, <b>LUNABAT — CHUYU (DAUGHTER)</b>, and <b>POPPYDASH — CRAIG (DAD)</b>.</p>
-          <a class="btn" href="images/family_day_04_collector_roster.jpg" download>⬇️ Download High-Res</a>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- 1985-2000 ARCADE SHOOT-EM-UP ENGINE SCRIPT -->
   <script>
+    const sCanvas = document.getElementById("shmup-canvas");
+    const sCtx = sCanvas.getContext("2d");
+
+    // Load circular pilot portraits for cockpit sprites
+    const spriteImgs = {
+      mom: new Image(),
+      child: new Image(),
+      dad: new Image()
+    };
+    spriteImgs.mom.src = "images/sunnyfox.jpg";
+    spriteImgs.child.src = "images/lunabat.jpg";
+    spriteImgs.dad.src = "images/poppydash.jpg";
+
+    let audioOn = true;
+    let kidShieldOn = true;
+    let audioCtx = null;
+
+    function playArcadeSound(type) {
+      if (!audioOn) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+        if (type === "shoot") {
+          osc.type = "square";
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.exponentialRampToValueAtTime(180, now + 0.06);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.06);
+          osc.start(now); osc.stop(now + 0.06);
+        } else if (type === "popcorn") {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.09);
+          gain.gain.setValueAtTime(0.07, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.09);
+          osc.start(now); osc.stop(now + 0.09);
+        } else if (type === "bomb") {
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(55, now + 0.45);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.45);
+          osc.start(now); osc.stop(now + 0.45);
+        } else if (type === "ducky") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(650, now);
+          osc.frequency.setValueAtTime(920, now + 0.07);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now); osc.stop(now + 0.2);
+        }
+      } catch (e) {}
+    }
+
+    function toggleAudio() {
+      audioOn = !audioOn;
+      const b = document.getElementById("audio-toggle");
+      b.textContent = audioOn ? "🔊 Arcade BGM & SFX: ON" : "🔇 Arcade BGM & SFX: OFF";
+      b.classList.toggle("active", audioOn);
+    }
+
+    function toggleKidShield() {
+      kidShieldOn = !kidShieldOn;
+      const b = document.getElementById("god-toggle");
+      b.textContent = kidShieldOn ? "🐤 Kid Ducky-Shield (1CC Mode): ON" : "🐤 Kid Ducky-Shield: NORMAL";
+      b.classList.toggle("active", kidShieldOn);
+    }
+
+    const STAGES = [
+      {
+        name: "STAGE 1: BLUE SHUTTLE HIGHWAY → GOOGLEPLEX",
+        skyTop: "#091538", skyBot: "#1e1b4b",
+        roadColor: "#1e293b",
+        bossName: "GOOGLE FAMILY DAY PINATA AIRSHIP",
+        bossColor: "#EA4335",
+        waterHazard: false
+      },
+      {
+        name: "STAGE 2: CAMP GOOGLE REDWOODS & LAKE TAHOE",
+        skyTop: "#064e3b", skyBot: "#0284c7",
+        roadColor: "#0369a1",
+        bossName: "LAKE TAHOE GIANT SPLASH KRAKEN (WATCH CRAIG'S TAIL!)",
+        bossColor: "#0ea5e9",
+        waterHazard: true
+      },
+      {
+        name: "STAGE 3: GOLDEN GATE BRIDGE ✈️ BOSTON SKYLINE",
+        skyTop: "#311042", skyBot: "#7c2d12",
+        roadColor: "#9a3412",
+        bossName: "STARLIGHT CLOUD FORTRESS MK-II",
+        bossColor: "#a855f7",
+        waterHazard: false
+      },
+      {
+        name: "STAGE 4: GRAND FAMILY DAY CARNIVAL FINALE",
+        skyTop: "#1e1b4b", skyBot: "#4c1d95",
+        roadColor: "#312e81",
+        bossName: "SUPER RAINBOW G-CORE MOTHERSHIP (1CC FINALE!)",
+        bossColor: "#facc15",
+        waterHazard: true
+      }
+    ];
+
+    let currentPilot = 0; // 0=Family Trio, 1=SunnyFox Mom, 2=LunaBat Chuyu, 3=PoppyDash Craig
+    let currentStage = 0;
+    let score = 0;
+    let combo = 1;
+    let weaponLevel = 3;
+    let bombs = 3;
+    let duckyShieldTimer = 180;
+    let bombFlashTimer = 0;
+    let calloutText = "🕹️ READY! FLY THE CAMP GOOGLE FAMILY SQUADRON!";
+    let calloutTimer = 180;
+    let scrollY = 0;
+    let frameCount = 0;
+
+    const player = { x: 300, y: 640, targetX: 300, targetY: 640 };
+    const keys = {};
+    const bullets = [];
+    const enemies = [];
+    const enemyBullets = [];
+    const powerups = [];
+    const particles = [];
+    const floatTexts = [];
+
+    let boss = {
+      active: false,
+      x: 300,
+      y: 135,
+      vx: 2.2,
+      hp: 400,
+      maxHp: 400
+    };
+
+    function selectPilot(idx, el) {
+      currentPilot = idx;
+      document.querySelectorAll(".pilot-card").forEach(c => c.classList.remove("active"));
+      if (el) el.classList.add("active");
+      const names = [
+        "✈️ FAMILY SQUADRON (Kunrui + Chuyu + Craig Combined Jet!)",
+        "☀️ SUNNYFOX (Kunrui • Mom) — Golden Lantern 5-Way Sunburst!",
+        "🌙 LUNABAT (Chuyu • Daughter) — Peace-Sign (✌️) Homing Moon-Stars!",
+        "🍿 POPPYDASH (Craig • Dad) — Turbo Popcorn Gatling & Ducky Swim Ring!"
+      ];
+      showCallout(names[idx]);
+      playArcadeSound("popcorn");
+    }
+
+    function setStage(idx) {
+      currentStage = idx;
+      for (let i = 0; i < 4; i++) {
+        const b = document.getElementById("st-btn-" + i);
+        if (b) b.classList.toggle("active", i === idx);
+      }
+      boss.active = false;
+      boss.hp = 450 + idx * 150;
+      boss.maxHp = boss.hp;
+      enemies.length = 0;
+      enemyBullets.length = 0;
+      if (STAGES[idx].waterHazard) {
+        duckyShieldTimer = 260;
+        showCallout("💦 LAKE TAHOE WATER DETECTED! CRAIG DEPLOYED HIS DUCKY SWIM RING! 🐤");
+      } else {
+        showCallout("🚀 ENTERING " + STAGES[idx].name + "!");
+      }
+      playArcadeSound("ducky");
+    }
+
+    function showCallout(msg) {
+      calloutText = msg;
+      calloutTimer = 170;
+    }
+
+    function triggerBomb() {
+      if (bombs <= 0) {
+        bombs = 3; // Auto-refill for endless fun!
+      } else {
+        bombs--;
+      }
+      bombFlashTimer = 55;
+      playArcadeSound("bomb");
+      const bombTitles = [
+        "💥 FAMILY TRIO MEGA FINISH: LANTERN + MOON PEACE-SIGN + POPCORN VOLCANO!",
+        "☀️ MOM SUNNYFOX ULTIMATE: VIP CAMERA FLASH & GOLDEN LANTERN SUNBURST!",
+        "🌙 CHUYU LUNABAT ULTIMATE: SCRUNCH-NOSE PEACE-SIGN (✌️) SUPERNOVA!",
+        "🍿 DAD POPPYDASH ULTIMATE: GIANT CARAMEL POPCORN & DUCKY TSUNAMI!"
+      ];
+      showCallout(bombTitles[currentPilot]);
+
+      // Convert all enemy bullets into golden popcorn & stars!
+      enemyBullets.forEach(eb => {
+        powerups.push({ x: eb.x, y: eb.y, vy: 1.8, kind: "popcorn" });
+      });
+      enemyBullets.length = 0;
+
+      enemies.forEach(en => {
+        en.hp -= 80;
+        for (let i = 0; i < 10; i++) {
+          particles.push({
+            x: en.x, y: en.y,
+            vx: (Math.random() - 0.5) * 9,
+            vy: (Math.random() - 0.5) * 9,
+            color: ["#facc15", "#f97316", "#a855f7", "#38bdf8"][i % 4],
+            life: 35, r: 6
+          });
+        }
+      });
+      if (boss.active) {
+        boss.hp = Math.max(0, boss.hp - 140);
+      }
+      updateHud();
+    }
+
+    function triggerDuckyRing() {
+      duckyShieldTimer = 360;
+      playArcadeSound("ducky");
+      showCallout("🐤 CRAIG'S RUBBER-DUCKY SWIM RING & FLOATIES ACTIVATED! TAIL 100% DRY! 🍿");
+      updateHud();
+    }
+
+    function insertCoinPowerup() {
+      weaponLevel = 5;
+      bombs = Math.min(9, bombs + 3);
+      duckyShieldTimer = 400;
+      playArcadeSound("popcorn");
+      showCallout("🪙 1-COIN INSERTED! MAX LEVEL 5 WEAPONS + 3 BOMBS + DUCKY SHIELD!");
+      updateHud();
+    }
+
+    function updateHud() {
+      document.getElementById("hud-score").textContent = String(score).padStart(6, "0");
+      document.getElementById("hud-combo").textContent = "x" + combo + " HIT!";
+      document.getElementById("hud-power").textContent = weaponLevel >= 5 ? "LV.5 MAX HYPER!" : "LV." + weaponLevel;
+      document.getElementById("hud-bombs").textContent = "🍿🌙☀️ (" + bombs + ")";
+      document.getElementById("hud-tail").textContent = duckyShieldTimer > 0 ? "🐤 FLOATIE SHIELD (" + Math.ceil(duckyShieldTimer/60) + "s)" : "☀️ 100% FLUFFY & DRY";
+    }
+
+    // Pointer / Touch / Mouse dragging on shmup-canvas
+    let isPointerDown = false;
+    sCanvas.addEventListener("pointerdown", e => {
+      isPointerDown = true;
+      const rect = sCanvas.getBoundingClientRect();
+      player.targetX = (e.clientX - rect.left) * (sCanvas.width / rect.width);
+      player.targetY = (e.clientY - rect.top) * (sCanvas.height / rect.height) - 35;
+    });
+    sCanvas.addEventListener("pointermove", e => {
+      if (!isPointerDown && e.pointerType !== "mouse") return;
+      const rect = sCanvas.getBoundingClientRect();
+      player.targetX = (e.clientX - rect.left) * (sCanvas.width / rect.width);
+      player.targetY = (e.clientY - rect.top) * (sCanvas.height / rect.height) - (e.pointerType === "touch" ? 45 : 0);
+    });
+    window.addEventListener("pointerup", () => { isPointerDown = false; });
+
+    window.addEventListener("keydown", e => {
+      keys[e.key.toLowerCase()] = true;
+      if (e.key === " " || e.key.toLowerCase() === "x" || e.key.toLowerCase() === "b") {
+        if (e.key.toLowerCase() === "x" || e.key.toLowerCase() === "b") triggerBomb();
+      }
+    });
+    window.addEventListener("keyup", e => { keys[e.key.toLowerCase()] = false; });
+
+    function spawnPlayerBullets() {
+      const x = player.x;
+      const y = player.y - 30;
+      const spread = Math.min(weaponLevel, 5);
+      if (frameCount % 9 === 0) playArcadeSound("shoot");
+
+      // Pilot 0 (Family Trio) or Pilot 1 (SunnyFox Mom): Golden Lantern Sunburst Beams
+      if (currentPilot === 0 || currentPilot === 1) {
+        for (let i = -Math.floor(spread / 2); i <= Math.floor(spread / 2); i++) {
+          bullets.push({
+            x: x + i * 14, y: y,
+            vx: i * 1.4, vy: -14,
+            kind: "lantern", color: "#facc15", r: 6
+          });
+        }
+      }
+      // Pilot 0 (Family Trio) or Pilot 2 (LunaBat Chuyu): Peace-Sign (✌️) & Homing Crescent Moons
+      if (currentPilot === 0 || currentPilot === 2) {
+        bullets.push({
+          x: x - 22, y: y, vx: -1.8, vy: -12.5,
+          kind: "moon", color: "#c084fc", r: 7, homing: true
+        });
+        bullets.push({
+          x: x + 22, y: y, vx: 1.8, vy: -12.5,
+          kind: "peace", color: "#f472b6", r: 7, homing: true
+        });
+      }
+      // Pilot 0 (Family Trio) or Pilot 3 (PoppyDash Craig): Rapid-Fire Buttered Popcorn Gatling
+      if (currentPilot === 0 || currentPilot === 3) {
+        for (let k = 0; k < (currentPilot === 3 ? 3 : 2); k++) {
+          bullets.push({
+            x: x + (Math.random() - 0.5) * 28,
+            y: y - k * 8,
+            vx: (Math.random() - 0.5) * 2.2,
+            vy: -15.5,
+            kind: "popcorn", color: "#fef08a", r: 6.5
+          });
+        }
+      }
+    }
+
+    function spawnEnemies() {
+      const st = STAGES[currentStage];
+      if (!boss.active && frameCount % 340 === 300) {
+        boss.active = true;
+        boss.hp = 420 + currentStage * 140;
+        boss.maxHp = boss.hp;
+        boss.x = 300;
+        showCallout("🚨 WARNING! " + st.bossName + " APPROACHING! 🚨");
+      }
+
+      if (frameCount % 42 === 0) {
+        const ex = 60 + Math.random() * 480;
+        const isWaterWave = st.waterHazard && Math.random() < 0.42;
+        enemies.push({
+          x: ex,
+          y: -40,
+          vx: Math.sin(frameCount * 0.05) * 1.8,
+          vy: isWaterWave ? 3.4 : 2.6,
+          hp: isWaterWave ? 18 : 14,
+          isWater: isWaterWave,
+          label: isWaterWave ? "💦 LAKE WAVE" : ["🎈 G-BALLOON", "🛸 DRONE", "☁️ CLOUD BOT"][Math.floor(Math.random() * 3)],
+          color: isWaterWave ? "#38bdf8" : ["#EA4335", "#4285F4", "#FBBC05", "#34A853"][Math.floor(Math.random() * 4)]
+        });
+      }
+    }
+
+    function drawBackground() {
+      const st = STAGES[currentStage];
+      const grad = sCtx.createLinearGradient(0, 0, 0, sCanvas.height);
+      grad.addColorStop(0, st.skyTop);
+      grad.addColorStop(1, st.skyBot);
+      sCtx.fillStyle = grad;
+      sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+
+      scrollY = (scrollY + (currentPilot === 3 ? 6.5 : 4.5)) % 160;
+
+      // Center scrolling railroad tracks (Camp Google Handcar tracks!) or Lake Tahoe wave lanes
+      sCtx.fillStyle = "rgba(255,255,255,0.06)";
+      sCtx.fillRect(140, 0, 320, sCanvas.height);
+
+      // Railroad ties / speed stripes
+      sCtx.fillStyle = st.waterHazard ? "rgba(56, 189, 248, 0.25)" : "rgba(250, 204, 21, 0.22)";
+      for (let y = -160 + scrollY; y < sCanvas.height; y += 40) {
+        sCtx.fillRect(160, y, 280, 8);
+      }
+
+      // Stage scenic landmarks on sides
+      for (let y = -160 + scrollY; y < sCanvas.height; y += 160) {
+        if (currentStage === 1) {
+          // Camp Google Redwoods & Signs
+          sCtx.fillStyle = "#14532d";
+          sCtx.beginPath();
+          sCtx.arc(55, y + 60, 42, 0, Math.PI * 2);
+          sCtx.arc(545, y + 60, 42, 0, Math.PI * 2);
+          sCtx.fill();
+          sCtx.fillStyle = "#fef08a";
+          sCtx.font = "bold 11px sans-serif";
+          sCtx.textAlign = "center";
+          sCtx.fillText("CAMP GOOGLE", 55, y + 64);
+          sCtx.fillText("LAKE TAHOE", 545, y + 64);
+        } else {
+          // Google 4-color pillars
+          sCtx.fillStyle = "#4285F4";
+          sCtx.fillRect(30, y + 30, 50, 50);
+          sCtx.fillStyle = "#34A853";
+          sCtx.fillRect(520, y + 30, 50, 50);
+        }
+      }
+    }
+
+    function drawCircleAvatar(img, cx, cy, r, borderColor) {
+      sCtx.save();
+      sCtx.beginPath();
+      sCtx.arc(cx, cy, r, 0, Math.PI * 2);
+      sCtx.closePath();
+      sCtx.clip();
+      if (img && img.complete && img.naturalWidth) {
+        sCtx.drawImage(img, cx - r, cy - r, r * 2, r * 2);
+      } else {
+        sCtx.fillStyle = borderColor;
+        sCtx.fill();
+      }
+      sCtx.restore();
+      sCtx.strokeStyle = borderColor;
+      sCtx.lineWidth = 3;
+      sCtx.beginPath();
+      sCtx.arc(cx, cy, r, 0, Math.PI * 2);
+      sCtx.stroke();
+    }
+
+    function drawPlayerJet() {
+      const px = player.x;
+      const py = player.y;
+
+      // Yellow Rubber-Ducky Swim Ring Shield around the jet!
+      if (duckyShieldTimer > 0) {
+        sCtx.save();
+        sCtx.strokeStyle = "#facc15";
+        sCtx.fillStyle = "rgba(250, 204, 21, 0.22)";
+        sCtx.lineWidth = 7;
+        sCtx.beginPath();
+        sCtx.arc(px, py, 58 + Math.sin(frameCount * 0.2) * 4, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.stroke();
+        sCtx.font = "22px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText("🐤", px, py - 52);
+        sCtx.fillText("🛟", px - 52, py + 8);
+        sCtx.fillText("🍿", px + 52, py + 8);
+        sCtx.restore();
+      }
+
+      // Jet Wings (Google 4-Color & Camp Google Wood/Gold Trim)
+      sCtx.save();
+      sCtx.fillStyle = "#f97316";
+      sCtx.beginPath();
+      sCtx.moveTo(px, py - 48);
+      sCtx.lineTo(px - 56, py + 24);
+      sCtx.lineTo(px + 56, py + 24);
+      sCtx.closePath();
+      sCtx.fill();
+      sCtx.strokeStyle = "#fef08a";
+      sCtx.lineWidth = 3;
+      sCtx.stroke();
+
+      // Twin Afterburner Flames
+      sCtx.fillStyle = frameCount % 2 === 0 ? "#38bdf8" : "#facc15";
+      sCtx.beginPath();
+      sCtx.moveTo(px - 22, py + 24);
+      sCtx.lineTo(px - 12, py + 48 + Math.random() * 12);
+      sCtx.lineTo(px - 4, py + 24);
+      sCtx.moveTo(px + 4, py + 24);
+      sCtx.lineTo(px + 12, py + 48 + Math.random() * 12);
+      sCtx.lineTo(px + 22, py + 24);
+      sCtx.fill();
+
+      // Draw Pilot Cockpits
+      if (currentPilot === 0) {
+        // All 3 Family Pilots together!
+        drawCircleAvatar(spriteImgs.dad, px - 34, py + 4, 18, "#22c55e");
+        drawCircleAvatar(spriteImgs.mom, px + 34, py + 4, 18, "#f97316");
+        drawCircleAvatar(spriteImgs.child, px, py - 10, 22, "#a855f7");
+      } else if (currentPilot === 1) {
+        drawCircleAvatar(spriteImgs.mom, px, py - 6, 25, "#f97316");
+      } else if (currentPilot === 2) {
+        drawCircleAvatar(spriteImgs.child, px, py - 6, 25, "#a855f7");
+      } else {
+        drawCircleAvatar(spriteImgs.dad, px, py - 6, 25, "#22c55e");
+      }
+      sCtx.restore();
+    }
+
+    function gameLoop() {
+      frameCount++;
+      if (duckyShieldTimer > 0) duckyShieldTimer--;
+      if (bombFlashTimer > 0) bombFlashTimer--;
+      if (calloutTimer > 0) calloutTimer--;
+
+      // Keyboard movement
+      const spd = currentPilot === 3 ? 8.5 : 6.8;
+      if (keys["arrowleft"] || keys["a"]) player.targetX -= spd;
+      if (keys["arrowright"] || keys["d"]) player.targetX += spd;
+      if (keys["arrowup"] || keys["w"]) player.targetY -= spd;
+      if (keys["arrowdown"] || keys["s"]) player.targetY += spd;
+
+      player.targetX = Math.max(50, Math.min(sCanvas.width - 50, player.targetX));
+      player.targetY = Math.max(110, Math.min(sCanvas.height - 65, player.targetY));
+      player.x += (player.targetX - player.x) * 0.25;
+      player.y += (player.targetY - player.y) * 0.25;
+
+      if (frameCount % 7 === 0) spawnPlayerBullets();
+      spawnEnemies();
+
+      drawBackground();
+
+      // Bomb screen flash
+      if (bombFlashTimer > 0) {
+        sCtx.fillStyle = `rgba(250, 204, 21, ${bombFlashTimer / 90})`;
+        sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+      }
+
+      // Update & draw player bullets
+      for (let i = bullets.length - 1; i >= 0; i--) {
+        const b = bullets[i];
+        if (b.homing && (enemies.length > 0 || boss.active)) {
+          const target = enemies[0] || boss;
+          const dx = target.x - b.x;
+          const dy = target.y - b.y;
+          const dist = Math.hypot(dx, dy) || 1;
+          b.vx += (dx / dist) * 0.85;
+          b.vy += (dy / dist) * 0.85;
+        }
+        b.x += b.vx;
+        b.y += b.vy;
+
+        sCtx.fillStyle = b.color;
+        sCtx.beginPath();
+        sCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        sCtx.fill();
+        if (b.kind === "peace") {
+          sCtx.font = "13px sans-serif";
+          sCtx.fillText("✌️", b.x - 6, b.y + 4);
+        } else if (b.kind === "popcorn") {
+          sCtx.font = "13px sans-serif";
+          sCtx.fillText("🍿", b.x - 6, b.y + 4);
+        }
+
+        if (b.y < -20 || b.x < -20 || b.x > sCanvas.width + 20) {
+          bullets.splice(i, 1);
+        }
+      }
+
+      // Boss logic
+      if (boss.active) {
+        boss.x += boss.vx;
+        if (boss.x < 110 || boss.x > sCanvas.width - 110) boss.vx *= -1;
+
+        // Draw Boss Airship
+        sCtx.fillStyle = STAGES[currentStage].bossColor;
+        sCtx.beginPath();
+        sCtx.roundRect(boss.x - 95, boss.y - 45, 190, 85, 22);
+        sCtx.fill();
+        sCtx.strokeStyle = "#fff";
+        sCtx.lineWidth = 3;
+        sCtx.stroke();
+
+        sCtx.fillStyle = "#fff";
+        sCtx.font = "bold 13px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(STAGES[currentStage].bossName.slice(0, 28), boss.x, boss.y - 8);
+
+        // Boss HP bar
+        sCtx.fillStyle = "#1e293b";
+        sCtx.fillRect(boss.x - 75, boss.y + 12, 150, 12);
+        sCtx.fillStyle = "#4ade80";
+        sCtx.fillRect(boss.x - 75, boss.y + 12, 150 * (boss.hp / boss.maxHp), 12);
+
+        // Boss fires colorful bullets or Lake Tahoe water splashes
+        if (frameCount % 48 === 0) {
+          for (let a = -2; a <= 2; a++) {
+            enemyBullets.push({
+              x: boss.x + a * 20,
+              y: boss.y + 42,
+              vx: a * 1.3,
+              vy: 3.8,
+              isWater: STAGES[currentStage].waterHazard
+            });
+          }
+        }
+
+        // Check bullet hits on Boss
+        for (let j = bullets.length - 1; j >= 0; j--) {
+          const b = bullets[j];
+          if (Math.abs(b.x - boss.x) < 92 && Math.abs(b.y - boss.y) < 44) {
+            boss.hp -= 3.2;
+            score += 25;
+            combo++;
+            bullets.splice(j, 1);
+            if (boss.hp <= 0) {
+              boss.active = false;
+              score += 5000;
+              playArcadeSound("bomb");
+              for (let k = 0; k < 12; k++) {
+                powerups.push({
+                  x: boss.x + (Math.random() - 0.5) * 140,
+                  y: boss.y + (Math.random() - 0.5) * 60,
+                  vy: 2.0,
+                  kind: k % 3 === 0 ? "ducky" : (k % 2 === 0 ? "power" : "popcorn")
+                });
+              }
+              const nextSt = (currentStage + 1) % 4;
+              showCallout("🏆 STAGE CLEAR! +5000 PTS! ADVANCING TO " + STAGES[nextSt].name + "!");
+              setTimeout(() => setStage(nextSt), 1600);
+              break;
+            }
+          }
+        }
+      }
+
+      // Update & draw enemies
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        const en = enemies[i];
+        en.x += en.vx;
+        en.y += en.vy;
+
+        sCtx.fillStyle = en.color;
+        sCtx.beginPath();
+        sCtx.arc(en.x, en.y, 24, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.strokeStyle = "#fff";
+        sCtx.lineWidth = 2;
+        sCtx.stroke();
+
+        sCtx.fillStyle = "#fff";
+        sCtx.font = "bold 11px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(en.label, en.x, en.y + 4);
+
+        // Bullet collision
+        for (let j = bullets.length - 1; j >= 0; j--) {
+          const b = bullets[j];
+          if (Math.hypot(b.x - en.x, b.y - en.y) < 28) {
+            en.hp -= 8;
+            bullets.splice(j, 1);
+            if (en.hp <= 0) {
+              score += 150;
+              combo++;
+              if (Math.random() < 0.48) {
+                powerups.push({
+                  x: en.x, y: en.y, vy: 2.2,
+                  kind: en.isWater ? "ducky" : (Math.random() < 0.35 ? "power" : "popcorn")
+                });
+              }
+              floatTexts.push({ x: en.x, y: en.y, text: "+150 🍿", life: 30 });
+              enemies.splice(i, 1);
+              break;
+            }
+          }
+        }
+
+        // Player collision with enemy / Lake Tahoe Water Hazard
+        if (enemies[i] && Math.hypot(player.x - en.x, player.y - en.y) < 46) {
+          if (en.isWater || currentPilot === 3) {
+            duckyShieldTimer = 240;
+            playArcadeSound("ducky");
+            showCallout("💦 SPLASH! CRAIG'S SKUNK TAIL ALMOST GOT WET — DUCKY FLOATIE AUTO-DEPLOYED! 🐤");
+          } else if (kidShieldOn) {
+            duckyShieldTimer = 180;
+            playArcadeSound("ducky");
+          }
+          enemies.splice(i, 1);
+        } else if (enemies[i] && en.y > sCanvas.height + 40) {
+          enemies.splice(i, 1);
+        }
+      }
+
+      // Enemy bullets
+      for (let i = enemyBullets.length - 1; i >= 0; i--) {
+        const eb = enemyBullets[i];
+        eb.x += eb.vx;
+        eb.y += eb.vy;
+        sCtx.fillStyle = eb.isWater ? "#38bdf8" : "#f43f5e";
+        sCtx.beginPath();
+        sCtx.arc(eb.x, eb.y, 7, 0, Math.PI * 2);
+        sCtx.fill();
+
+        if (Math.hypot(eb.x - player.x, eb.y - player.y) < 38) {
+          duckyShieldTimer = Math.max(duckyShieldTimer, 160);
+          playArcadeSound("ducky");
+          if (eb.isWater) {
+            showCallout("🐤 DUCKY FLOATIE BOUNCED LAKE TAHOE WATER SPLASH! CRAIG'S TAIL IS SAFE!");
+          }
+          enemyBullets.splice(i, 1);
+        } else if (eb.y > sCanvas.height + 20) {
+          enemyBullets.splice(i, 1);
+        }
+      }
+
+      // Powerups ([P], [🍿 Popcorn], [🐤 Ducky Ring])
+      for (let i = powerups.length - 1; i >= 0; i--) {
+        const p = powerups[i];
+        p.y += p.vy;
+        sCtx.font = "22px sans-serif";
+        sCtx.textAlign = "center";
+        const icon = p.kind === "power" ? "🅿️" : (p.kind === "ducky" ? "🐤" : "🍿");
+        sCtx.fillText(icon, p.x, p.y);
+
+        if (Math.hypot(p.x - player.x, p.y - player.y) < 46) {
+          score += 300;
+          playArcadeSound("popcorn");
+          if (p.kind === "power") {
+            weaponLevel = Math.min(5, weaponLevel + 1);
+            floatTexts.push({ x: p.x, y: p.y, text: "POWER UP LV." + weaponLevel + "!", life: 40 });
+          } else if (p.kind === "ducky") {
+            duckyShieldTimer = 320;
+            floatTexts.push({ x: p.x, y: p.y, text: "🐤 DUCKY SWIM RING!", life: 40 });
+          } else {
+            floatTexts.push({ x: p.x, y: p.y, text: "+300 POPCORN! 🍿", life: 35 });
+          }
+          powerups.splice(i, 1);
+        } else if (p.y > sCanvas.height + 30) {
+          powerups.splice(i, 1);
+        }
+      }
+
+      // Floating score popups
+      for (let i = floatTexts.length - 1; i >= 0; i--) {
+        const ft = floatTexts[i];
+        ft.y -= 1.2;
+        ft.life--;
+        sCtx.fillStyle = "#fef08a";
+        sCtx.font = "bold 14px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(ft.text, ft.x, ft.y);
+        if (ft.life <= 0) floatTexts.splice(i, 1);
+      }
+
+      drawPlayerJet();
+
+      // Top Arcade Canvas Overlay HUD
+      sCtx.fillStyle = "rgba(7, 11, 20, 0.78)";
+      sCtx.fillRect(0, 0, sCanvas.width, 42);
+      sCtx.fillStyle = "#fef08a";
+      sCtx.font = "bold 14px monospace";
+      sCtx.textAlign = "left";
+      sCtx.fillText("1UP: " + String(score).padStart(6, "0") + "   PWR: LV." + weaponLevel + "   COMBO: x" + combo, 14, 26);
+      sCtx.textAlign = "right";
+      sCtx.fillStyle = "#38bdf8";
+      sCtx.fillText(STAGES[currentStage].name.slice(0, 26), sCanvas.width - 14, 26);
+
+      // Callout Banner
+      if (calloutTimer > 0) {
+        sCtx.fillStyle = "rgba(15, 23, 42, 0.9)";
+        sCtx.strokeStyle = "#facc15";
+        sCtx.lineWidth = 2;
+        sCtx.fillRect(24, 54, sCanvas.width - 48, 36);
+        sCtx.strokeRect(24, 54, sCanvas.width - 48, 36);
+        sCtx.fillStyle = "#fef08a";
+        sCtx.font = "bold 13px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(calloutText, sCanvas.width / 2, 77);
+      }
+
+      if (frameCount % 15 === 0) updateHud();
+      requestAnimationFrame(gameLoop);
+    }
+    requestAnimationFrame(gameLoop);
+
+    // =========================================================================
+    // PHOTO MERGER STUDIO SCRIPT
+    // =========================================================================
     const canvas = document.getElementById("merger-canvas");
     const ctx = canvas.getContext("2d");
     const bgUrls = [
-      "images/113_Camp_Google_Handcar_Critter_Transformation.jpg", "images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg", "images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg", "images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg",
-      "images/family_day_02_carnival_race.jpg",
-      "images/family_day_03_gbike_ride.jpg",
-      "images/family_day_04_collector_roster.jpg"
+      "images/113_Camp_Google_Handcar_Critter_Transformation.jpg",
+      "images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg",
+      "images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg",
+      "images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg"
     ];
     const bgs = bgUrls.map(u => { const img = new Image(); img.onload = draw; img.src = u; return img; });
     const avatars = [
-      { name: "KUNRUI (SunnyFox)", color: "#f97316", src: "images/sunnyfox.jpg", x: 140, y: 560, r: 68 },
-      { name: "CHUYU (LunaBat)", color: "#a855f7", src: "images/lunabat.jpg", x: 310, y: 560, r: 68 },
-      { name: "CRAIG (PoppyDash)", color: "#22c55e", src: "images/poppydash.jpg", x: 480, y: 560, r: 68 }
+      { name: "KUNRUI (SunnyFox)", color: "#f97316", src: "images/sunnyfox.jpg", x: 140, y: 560, r: 64 },
+      { name: "CHUYU (LunaBat)", color: "#a855f7", src: "images/lunabat.jpg", x: 300, y: 560, r: 64 },
+      { name: "CRAIG (PoppyDash)", color: "#22c55e", src: "images/poppydash.jpg", x: 460, y: 560, r: 64 }
     ];
     avatars.forEach(a => { const img = new Image(); img.onload = draw; img.src = a.src; a.img = img; });
 
-    let userPhoto = new Image(); userPhoto.onload = draw; userPhoto.src = "images/real_camp_google_handcar.jpg";
+    let userPhoto = new Image();
+    userPhoto.onload = draw;
+    userPhoto.src = "images/real_camp_google_handcar.jpg";
     let mode = "split";
     let bgIdx = 0;
     let dragging = null;
+
+    function loadPresetReal(url, btn) {
+      btn.parentElement.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const img = new Image();
+      img.onload = () => { userPhoto = img; draw(); };
+      img.src = url;
+    }
 
     document.getElementById("photo-input").addEventListener("change", e => {
       const file = e.target.files[0];
@@ -424,7 +1300,6 @@
       ctx.fillStyle = "#0f172a";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Google 4-color top bar
       const colors = ["#4285F4", "#EA4335", "#FBBC05", "#34A853"];
       colors.forEach((c, i) => {
         ctx.fillStyle = c;
@@ -432,34 +1307,13 @@
       });
 
       const activeBg = bgs[bgIdx];
-
       if (mode === "split") {
-        // Left side: Real Family Photo (or prompt), Right side: Smiling Critters Family Scene
-        if (userPhoto) {
-          drawCover(userPhoto, 24, 32, 564, 600);
-        } else {
-          ctx.fillStyle = "#1e293b";
-          ctx.fillRect(24, 32, 564, 600);
-          ctx.strokeStyle = "#4285F4";
-          ctx.lineWidth = 3;
-          ctx.strokeRect(24, 32, 564, 600);
-          ctx.fillStyle = "#f8fafc";
-          ctx.font = "bold 24px sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText("📸 Tap 'Select Real Family Photo'", 306, 290);
-          ctx.font = "17px sans-serif";
-          ctx.fillStyle = "#cbd5e1";
-          ctx.fillText("Your Google Family Day photo appears here", 306, 325);
-          ctx.fillText("side-by-side with SunnyFox, LunaBat & PoppyDash!", 306, 352);
-        }
+        drawCover(userPhoto, 24, 32, 564, 600);
         drawCover(activeBg, 612, 32, 564, 600);
-      } else if (mode === "overlay" && userPhoto) {
-        drawCover(userPhoto, 24, 32, 1152, 600);
       } else {
         drawCover(activeBg, 24, 32, 1152, 600);
       }
 
-      // Draw draggable circular Critter badges
       avatars.forEach(a => {
         if (!a.img || !a.img.complete) return;
         ctx.save();
@@ -484,7 +1338,6 @@
         ctx.fillText(a.name, a.x, a.y + a.r);
       });
 
-      // Bottom Footer Banner
       ctx.fillStyle = "#090d16";
       ctx.fillRect(0, 648, 1200, 72);
       ctx.fillStyle = "#fff";
