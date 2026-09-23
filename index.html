@@ -329,28 +329,28 @@
       <!-- MAIN SOLO PILOT (CHUYU) + 3 INSTANT/RANDOM SKY HELPER SUMMON CARDS -->
       <div class="pilot-selector">
         <div class="pilot-card active" onclick="summonSpecificHelper('random', this)">
-          <img src="images/lunabat.jpg" alt="LunaBat Chuyu Solo Pilot" />
+          <img src="icons/critter_01_lunabat.jpg" alt="LunaBat Chuyu Solo Pilot" />
           <div class="pilot-info">
             <h4>🌙 MAIN PILOT: CHUYU (LunaBat ✌️)</h4>
             <p>Chuyu flies her solo purple Starlight Plane! Mom, Dad &amp; Critters randomly fly in to help!</p>
           </div>
         </div>
         <div class="pilot-card" onclick="summonSpecificHelper('mom', this)">
-          <img src="images/sunnyfox.jpg" alt="SunnyFox Mom Helper" />
+          <img src="icons/critter_02_sunnyfox.jpg" alt="SunnyFox Mom Helper" />
           <div class="pilot-info">
             <h4>☀️ CALL MOM TO SKY (SunnyFox 🏮)</h4>
             <p>Tap to call Mom's Lantern Jet right now! Shoots Golden Lantern Beams (2x vs. Huggy)!</p>
           </div>
         </div>
         <div class="pilot-card" onclick="summonSpecificHelper('dad', this)">
-          <img src="images/poppydash.jpg" alt="PoppyDash Craig Helper" />
+          <img src="icons/critter_03_poppydash.jpg" alt="PoppyDash Craig Helper" />
           <div class="pilot-info">
             <h4>🍿 CALL DAD TO SKY (PoppyDash 🐤)</h4>
             <p>Tap to call Dad in his Yellow Ducky Ring! Shoots Triple Popcorn Rockets at bosses!</p>
           </div>
         </div>
         <div class="pilot-card" onclick="summonSpecificHelper('critter', this)">
-          <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Smiling Critter Friends" />
+          <img src="icons/critter_04_catnap.jpg" alt="Smiling Critter Friends" />
           <div class="pilot-info">
             <h4>🐱🐶🐰 CALL CRITTER FRIENDS!</h4>
             <p>Summons CatNap (🌙 Sleep Mist), DogDay (☀️), Hoppy (⚡), or Bobby BearHug (❤️ Heal)!</p>
@@ -502,15 +502,23 @@
     const sCanvas = document.getElementById("shmup-canvas");
     const sCtx = sCanvas.getContext("2d");
 
-    // Load circular pilot portraits for cockpit sprites
+    // Load uniform 1-icon-per-critter kawaii portraits for cockpit sprites
     const spriteImgs = {
-      mom: new Image(),
       child: new Image(),
-      dad: new Image()
+      mom: new Image(),
+      dad: new Image(),
+      catnap: new Image(),
+      dogday: new Image(),
+      bobby: new Image(),
+      hoppy: new Image()
     };
-    spriteImgs.mom.src = "images/sunnyfox.jpg";
-    spriteImgs.child.src = "images/lunabat.jpg";
-    spriteImgs.dad.src = "images/poppydash.jpg";
+    spriteImgs.child.src  = "icons/critter_01_lunabat.jpg";
+    spriteImgs.mom.src    = "icons/critter_02_sunnyfox.jpg";
+    spriteImgs.dad.src    = "icons/critter_03_poppydash.jpg";
+    spriteImgs.catnap.src = "icons/critter_04_catnap.jpg";
+    spriteImgs.dogday.src = "icons/critter_05_dogday.jpg";
+    spriteImgs.bobby.src  = "icons/critter_06_bobby.jpg";
+    spriteImgs.hoppy.src  = "icons/critter_07_hoppy.jpg";
 
     let audioOn = true;
     let gameSpeed = 0.32; // 5yo Super Gentle anti-dizziness default!
@@ -623,7 +631,7 @@
         shortName: "🐱 CatNap",
         wingColor: "#6d28d9",
         borderColor: "#c084fc",
-        imgKey: null,
+        imgKey: "catnap",
         emoji: "🐱",
         badgeEmoji: "🌙",
         bulletIcon: "💤",
@@ -637,7 +645,7 @@
         shortName: "🐶 DogDay",
         wingColor: "#ea580c",
         borderColor: "#facc15",
-        imgKey: null,
+        imgKey: "dogday",
         emoji: "🐶",
         badgeEmoji: "☀️",
         bulletIcon: "🥏",
@@ -650,7 +658,7 @@
         shortName: "🐰 Hoppy",
         wingColor: "#16a34a",
         borderColor: "#86efac",
-        imgKey: null,
+        imgKey: "hoppy",
         emoji: "🐰",
         badgeEmoji: "⚡",
         bulletIcon: "⚡",
@@ -663,7 +671,7 @@
         shortName: "🐻 Bobby BearHug",
         wingColor: "#e11d48",
         borderColor: "#fda4af",
-        imgKey: null,
+        imgKey: "bobby",
         emoji: "🐻",
         badgeEmoji: "❤️",
         bulletIcon: "❤️",
