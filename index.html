@@ -315,12 +315,13 @@
     <!-- SECTION 1: CHUYU'S SOLO STARLIGHT PLANE + RANDOM FAMILY/CRITTER SKY HELPERS VS. POPPY PLAYTIME CH.1 & CH.2 -->
     <section class="arcade-shell" id="arcade-sec">
       <div class="arcade-marquee">
-        <div class="marquee-title">🦇 CHUYU'S SKY BATTLE VS. POPPY PLAYTIME CH.1 &amp; CH.2 — WITH MOM, DAD &amp; CRITTERS HELPERS! (5岁防眩晕微战斗模式)</div>
+        <div class="marquee-title">🦇 CHUYU'S SKY BATTLE VS. POPPY PLAYTIME CH.1 &amp; CH.2 — WITH MOM, DAD &amp; CRITTERS HELPERS!</div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-          <button class="btn active" onclick="setGameSpeed(0.32, this)">🐌 5yo Super Gentle (Default)</button>
-          <button class="btn" onclick="setGameSpeed(0.58, this)">🐢 Normal Mild Battle</button>
-          <button class="btn" onclick="setGameSpeed(0, this)">⏸️ Pause Motion</button>
-          <button class="btn active" id="audio-toggle" onclick="toggleAudio()">🔊 Soft Chimes: ON</button>
+          <button class="btn" id="top-start-btn" style="background:#16a34a;border-color:#86efac;color:#fff;font-size:0.9rem;padding:8px 16px;" onclick="startGame()">▶️ START GAME</button>
+          <button class="btn" id="top-stop-btn" style="background:#dc2626;border-color:#fca5a5;color:#fff;font-size:0.9rem;padding:8px 16px;" onclick="stopGame()">⏹️ STOP GAME</button>
+          <button class="btn active" onclick="setGameSpeed(0.32, this)">🐌 5yo Gentle</button>
+          <button class="btn" onclick="setGameSpeed(0.58, this)">🐢 Normal Speed</button>
+          <button class="btn active" id="audio-toggle" onclick="toggleAudio()">🔊 Chimes: ON</button>
         </div>
       </div>
 
@@ -361,15 +362,17 @@
           <div class="game-viewport">
             <canvas id="shmup-canvas" width="600" height="800"></canvas>
           </div>
-          <div class="touch-bar">
-            <button class="arcade-btn bomb" id="btn-super-beam" onclick="triggerBomb()">🌈 SUPER TEAM BEAM (Cost: 12 🍿)</button>
-            <button class="arcade-btn ducky" id="btn-call-helper" onclick="manualSummonHelper()">📣 CALL HELPER (10s Cooldown)</button>
-            <button class="arcade-btn coin" onclick="spawnNextChapterBoss()">👾 NEXT BOSS WAVE (切换怪兽)</button>
+          <div class="touch-bar" style="grid-template-columns:repeat(4,1fr);">
+            <button class="arcade-btn coin" id="bottom-start-btn" style="background:linear-gradient(135deg,#16a34a,#15803d);border-color:#86efac;" onclick="startGame()">▶️ START GAME (开始游戏)</button>
+            <button class="arcade-btn bomb" id="bottom-stop-btn" style="background:linear-gradient(135deg,#dc2626,#991b1b);border-color:#fca5a5;" onclick="stopGame()">⏹️ STOP GAME (停止重置)</button>
+            <button class="arcade-btn bomb" id="btn-super-beam" onclick="triggerBomb()">🌈 SUPER BEAM (12 🍿)</button>
+            <button class="arcade-btn ducky" id="btn-call-helper" onclick="manualSummonHelper()">📣 CALL HELPER</button>
           </div>
         </div>
 
         <div class="arcade-sidebar">
           <h3 style="margin:0;color:#facc15;">🦇 CHUYU'S BATTLE HUD</h3>
+          <div class="stat-row"><span>GAME STATUS</span><span id="hud-status" style="color:#fde047;">⏹️ READY TO START</span></div>
           <div class="stat-row"><span>MAIN PILOT</span><span style="color:#c084fc;">🌙 Chuyu (LunaBat Solo)</span></div>
           <div class="stat-row"><span>ACTIVE SKY HELPERS</span><span id="hud-helpers" style="color:#4ade80;">🎲 Arriving in sky...</span></div>
           <div class="stat-row"><span>BOSS WAVES CLEARED</span><span id="hud-score" style="color:#fef08a;">0 🏆</span></div>
@@ -720,6 +723,7 @@
       }
     };
 
+    let isGameRunning = false; // Starts in calm STOPPED/STANDBY mode until Start Game is clicked!
     let currentStage = 0;
     let bossesTamed = 0;
     let popcornCount = 6;      // Start with 6 Popcorn (12 needed for Super Team Beam!)
@@ -729,7 +733,7 @@
     let pitStopTimer = 0;      // Brief 3.5s pit-stop banner if Chuyu loses all 6 hearts
     let helperCooldownTimer = 0; // 10-second cooldown for manual helper button
     let rainbowWaveRadius = 0;
-    let calloutText = "🌙 Line up Chuyu's plane under the Boss to hit them & dodge their attacks!";
+    let calloutText = "▶️ Press START GAME to launch Chuyu's Sky Battle!";
     let calloutTimer = 260;
     let frameCount = 0;
     let bossWaveIndex = 0;
@@ -751,7 +755,44 @@
     const powerups = [];
     const floatTexts = [];
 
+    function startGame() {
+      isGameRunning = true;
+      if (gameSpeed === 0) gameSpeed = 0.32;
+      pitStopTimer = 0;
+      if (enemies.filter(e => e.isBoss).length === 0) {
+        spawnBossEntity(STAGES[currentStage].bossKey);
+      }
+      if (activeHelpers.length === 0) {
+        summonSpecificHelper("mom");
+      }
+      playArcadeSound("ducky");
+      showCallout("🟢 GAME STARTED! Line up Chuyu under the Boss & dodge their attacks!");
+      updateHud();
+    }
+
+    function stopGame() {
+      isGameRunning = false;
+      pitStopTimer = 0;
+      playerInvulnTimer = 0;
+      bullets.length = 0;
+      enemyProjectiles.length = 0;
+      powerups.length = 0;
+      activeHelpers.length = 0;
+      chuyuHearts = maxChuyuHearts;
+      player.x = 300; player.y = 650;
+      player.targetX = 300; player.targetY = 650;
+      // Reset current boss to full HP on standby
+      spawnBossEntity(STAGES[currentStage].bossKey);
+      playArcadeSound("shoot");
+      showCallout("🛑 GAME STOPPED & RESET! Tap ▶️ START GAME whenever Chuyu is ready!");
+      updateHud();
+    }
+
     function manualSummonHelper() {
+      if (!isGameRunning) {
+        startGame();
+        return;
+      }
       if (helperCooldownTimer > 0) {
         const secs = Math.ceil(helperCooldownTimer / 60);
         showCallout("⏳ Helper Radio recharging (" + secs + "s)! Or catch a floating 📣 Whistle in the sky!");
@@ -949,6 +990,11 @@
     }
 
     function updateHud() {
+      const statusElem = document.getElementById("hud-status");
+      if (statusElem) {
+        statusElem.textContent = isGameRunning ? "🟢 RUNNING" : "🛑 STOPPED (Tap ▶️ START)";
+        statusElem.style.color = isGameRunning ? "#4ade80" : "#fde047";
+      }
       document.getElementById("hud-score").textContent = bossesTamed + " 🏆";
       document.getElementById("hud-combo").textContent = popcornCount + " 🍿" + (popcornCount >= 12 ? " (🌈 READY!)" : " (/12)");
       document.getElementById("hud-hearts").textContent =
@@ -956,7 +1002,9 @@
         " (" + chuyuHearts + "/" + maxChuyuHearts + ")";
       const helperElem = document.getElementById("hud-helpers");
       if (helperElem) {
-        if (activeHelpers.length === 0) {
+        if (!isGameRunning) {
+          helperElem.textContent = "Standby (Tap ▶️ START)";
+        } else if (activeHelpers.length === 0) {
           helperElem.textContent = "Solo Chuyu (Call or catch 📣)";
         } else {
           helperElem.textContent = activeHelpers.map(h => h.spec.shortName + " (" + Math.ceil(h.timer / 60) + "s)").join(" + ");
@@ -965,19 +1013,23 @@
       const beamBtn = document.getElementById("btn-super-beam");
       if (beamBtn) {
         beamBtn.textContent = popcornCount >= 12
-          ? "🌈 SUPER TEAM BEAM READY! (-10 HP)"
+          ? "🌈 SUPER BEAM READY! (-10 HP)"
           : "🌈 SUPER BEAM (" + popcornCount + "/12 🍿)";
       }
       const callBtn = document.getElementById("btn-call-helper");
       if (callBtn) {
         callBtn.textContent = helperCooldownTimer > 0
-          ? "⏳ HELPER RADIO (" + Math.ceil(helperCooldownTimer / 60) + "s)"
-          : "📣 CALL MOM, DAD OR CRITTER!";
+          ? "⏳ HELPER (" + Math.ceil(helperCooldownTimer / 60) + "s)"
+          : "📣 CALL HELPER";
       }
     }
 
     let isPointerDown = false;
     sCanvas.addEventListener("pointerdown", e => {
+      if (!isGameRunning) {
+        startGame();
+        return;
+      }
       if (pitStopTimer > 0) {
         pitStopTimer = 1; // Tap to immediately finish pit-stop and rematch!
       }
@@ -987,6 +1039,7 @@
       player.targetY = (e.clientY - rect.top) * (sCanvas.height / rect.height) - 25;
     });
     sCanvas.addEventListener("pointermove", e => {
+      if (!isGameRunning) return;
       if (!isPointerDown && e.pointerType !== "mouse") return;
       const rect = sCanvas.getBoundingClientRect();
       player.targetX = (e.clientX - rect.left) * (sCanvas.width / rect.width);
@@ -997,9 +1050,9 @@
     window.addEventListener("keydown", e => { keys[e.key.toLowerCase()] = true; });
     window.addEventListener("keyup", e => { keys[e.key.toLowerCase()] = false; });
 
-    // Start on Wave 1 (Bunzo Bunny 25 HP) with Mom flying in after 2 seconds!
+    // Spawn initial Wave 1 Boss on standby (waits for user to click ▶️ START GAME!)
     spawnBossEntity("bunzo");
-    setTimeout(() => summonSpecificHelper("mom"), 1500);
+    updateHud();
 
     function spawnPlayerAndHelperBullets() {
       if (gameSpeed === 0 || pitStopTimer > 0) return;
@@ -1502,6 +1555,57 @@
 
     function gameLoop() {
       frameCount++;
+
+      // If game is STOPPED / READY TO START, render calm Standby Scene + big clickable Start Game overlay!
+      if (!isGameRunning) {
+        drawBackground();
+        enemies.forEach(en => {
+          en.y = 145;
+          en.x = 300;
+          drawPoppyPlaytimeBoss(en);
+        });
+        drawChuyuSoloPlaneAndHelpers();
+
+        // Top Header Bar
+        sCtx.fillStyle = "rgba(7, 11, 20, 0.85)";
+        sCtx.fillRect(0, 0, sCanvas.width, 42);
+        sCtx.fillStyle = "#fde047";
+        sCtx.font = "bold 13.5px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText("🛑 GAME STOPPED — Click ▶️ START GAME to Play!", sCanvas.width / 2, 26);
+
+        // Center Start Game Modal Card on Canvas
+        sCtx.fillStyle = "rgba(15, 23, 42, 0.92)";
+        sCtx.strokeStyle = "#4ade80";
+        sCtx.lineWidth = 4;
+        sCtx.fillRect(55, 290, 490, 210);
+        sCtx.strokeRect(55, 290, 490, 210);
+
+        sCtx.fillStyle = "#fef08a";
+        sCtx.font = "bold 21px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText("🦇 CHUYU'S SKY BATTLE READY!", 300, 332);
+
+        sCtx.fillStyle = "#e2e8f0";
+        sCtx.font = "14px sans-serif";
+        sCtx.fillText("Solo Pilot: Chuyu (LunaBat ✌️) • 6 Cozy Hearts ❤️", 300, 364);
+        sCtx.fillText("Sky Helpers: Mom (SunnyFox), Dad (PoppyDash) & Critters!", 300, 388);
+        sCtx.fillText("Bosses: Poppy Playtime Ch.1 & Ch.2 (25–45 HP)", 300, 412);
+
+        // Big Green Canvas Start Button
+        sCtx.fillStyle = "#16a34a";
+        sCtx.fillRect(130, 432, 340, 48);
+        sCtx.strokeStyle = "#bbf7d0";
+        sCtx.lineWidth = 2.5;
+        sCtx.strokeRect(130, 432, 340, 48);
+        sCtx.fillStyle = "#ffffff";
+        sCtx.font = "bold 17px sans-serif";
+        sCtx.fillText("▶️ CLICK / TAP TO START GAME!", 300, 462);
+
+        requestAnimationFrame(gameLoop);
+        return;
+      }
+
       if (calloutTimer > 0) calloutTimer--;
       if (playerInvulnTimer > 0) playerInvulnTimer--;
       if (helperCooldownTimer > 0) helperCooldownTimer--;
