@@ -280,6 +280,54 @@
 
     <h2 style="margin:0 0 14px;">🎨 Google Family Day × Smiling Critters Scenes</h2>
     <div class="gallery-grid">
+      <div class="art-card" style="border:2px solid #facc15;">
+        <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Camp Google Handcar (Critter Transformation) — PoppyDash (Craig), LunaBat (Chuyu) & SunnyFox (Kunrui) in Exact Outfits" style="height:260px;" />
+        <div class="art-meta">
+          <h4>🌟 Camp Google Handcar (Critter Transformation)</h4>
+          <p>PoppyDash (Craig), LunaBat (Chuyu) & SunnyFox (Kunrui) in Exact Outfits</p>
+          <a class="btn" href="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card" style="border:2px solid #facc15;">
+        <img src="images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg" alt="Camp Google Handcar (Real Family + 3D Critters) — Craig, Chuyu & Kunrui with PoppyDash, LunaBat & SunnyFox" style="height:260px;" />
+        <div class="art-meta">
+          <h4>🌟 Camp Google Handcar (Real Family + 3D Critters)</h4>
+          <p>Craig, Chuyu & Kunrui with PoppyDash, LunaBat & SunnyFox</p>
+          <a class="btn" href="images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card" style="border:2px solid #facc15;">
+        <img src="images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg" alt="Blue Shuttle Bus Selfie (Critter Transformation) — Craig (PoppyDash), Chuyu (LunaBat Peace Sign) & Kunrui (SunnyFox)" style="height:260px;" />
+        <div class="art-meta">
+          <h4>🌟 Blue Shuttle Bus Selfie (Critter Transformation)</h4>
+          <p>Craig (PoppyDash), Chuyu (LunaBat Peace Sign) & Kunrui (SunnyFox)</p>
+          <a class="btn" href="images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card" style="border:2px solid #facc15;">
+        <img src="images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg" alt="Blue Shuttle Bus Selfie (Real Family + 3D Plush Critters) — Craig, Chuyu & Kunrui with Shoulder Companions" style="height:260px;" />
+        <div class="art-meta">
+          <h4>🌟 Blue Shuttle Bus Selfie (Real Family + 3D Plush Critters)</h4>
+          <p>Craig, Chuyu & Kunrui with Shoulder Companions</p>
+          <a class="btn" href="images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card" style="border:2px solid #facc15;">
+        <img src="images/117_Camp_Google_Lake_Tahoe_Popcorn_Sprint_Swim_Floaties.jpg" alt="Camp Google × Lake Tahoe — Dad PoppyDash Sprinting with Popcorn & Floaties + SunnyFox & LunaBat on Handcar" style="height:260px;" />
+        <div class="art-meta">
+          <h4>🌟 Camp Google × Lake Tahoe</h4>
+          <p>Dad PoppyDash Sprinting with Popcorn & Floaties + SunnyFox & LunaBat on Handcar</p>
+          <a class="btn" href="images/117_Camp_Google_Lake_Tahoe_Popcorn_Sprint_Swim_Floaties.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card" style="border:2px solid #facc15;">
+        <img src="images/118_Camp_Google_3Panel_Family_Outfit_Showcase.jpg" alt="Camp Google Family Day 3-Panel Outfit Showcase — SunnyFox (Kunrui), LunaBat (Chuyu) & PoppyDash (Craig)" style="height:260px;" />
+        <div class="art-meta">
+          <h4>🌟 Camp Google Family Day 3-Panel Outfit Showcase</h4>
+          <p>SunnyFox (Kunrui), LunaBat (Chuyu) & PoppyDash (Craig)</p>
+          <a class="btn" href="images/118_Camp_Google_3Panel_Family_Outfit_Showcase.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
       <div class="art-card">
         <img src="images/family_day_01_welcome_arch.jpg" alt="Google Family Day Welcome Arch" />
         <div class="art-meta">
@@ -319,7 +367,7 @@
     const canvas = document.getElementById("merger-canvas");
     const ctx = canvas.getContext("2d");
     const bgUrls = [
-      "images/family_day_01_welcome_arch.jpg",
+      "images/113_Camp_Google_Handcar_Critter_Transformation.jpg", "images/114_Camp_Google_Handcar_Real_Family_Plus_Critters.jpg", "images/115_Shuttle_Bus_Selfie_Critter_Transformation.jpg", "images/116_Shuttle_Bus_Selfie_Real_Family_Plus_Critters.jpg",
       "images/family_day_02_carnival_race.jpg",
       "images/family_day_03_gbike_ride.jpg",
       "images/family_day_04_collector_roster.jpg"
@@ -332,7 +380,7 @@
     ];
     avatars.forEach(a => { const img = new Image(); img.onload = draw; img.src = a.src; a.img = img; });
 
-    let userPhoto = null;
+    let userPhoto = new Image(); userPhoto.onload = draw; userPhoto.src = "images/real_camp_google_handcar.jpg";
     let mode = "split";
     let bgIdx = 0;
     let dragging = null;
