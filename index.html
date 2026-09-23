@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Family Day Critters" />
+  <title>Google Family Day × Smiling Critters Family Studio (Kunrui • Chuyu • Craig)</title>
+  <style>
+    :root {
+      --g-blue: #4285F4;
+      --g-red: #EA4335;
+      --g-yellow: #FBBC05;
+      --g-green: #34A853;
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #1e293b, #090d16 75%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      padding: 20px 18px 16px;
+      text-align: center;
+      border-bottom: 4px solid;
+      border-image: linear-gradient(90deg, var(--g-blue), var(--g-red), var(--g-yellow), var(--g-green)) 1;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .g-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    h1 { margin: 0 0 6px; font-size: 1.55rem; }
+    .subtitle { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 22px 18px 48px;
+    }
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .member-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 16px;
+      border: 2px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .member-card.mom { border-color: #f97316; }
+    .member-card.child { border-color: #a855f7; }
+    .member-card.dad { border-color: #22c55e; }
+    .member-card img {
+      width: 92px;
+      height: 92px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .role-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .mom .role-tag { background: #f97316; color: #fff; }
+    .child .role-tag { background: #a855f7; color: #fff; }
+    .dad .role-tag { background: #22c55e; color: #052e16; }
+    .studio-panel {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: 28px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+    }
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 920px) {
+      .studio-layout { grid-template-columns: 1fr; }
+    }
+    .canvas-box {
+      background: #090d16;
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      border: 2px dashed rgba(255,255,255,0.2);
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      touch-action: none;
+      cursor: grab;
+    }
+    .controls-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .ctrl-group {
+      background: rgba(15, 23, 42, 0.7);
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .ctrl-group h3 {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      color: #facc15;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+    .btn:hover, .btn.active {
+      background: linear-gradient(135deg, var(--g-blue), #8b5cf6);
+      border-color: #93c5fd;
+    }
+    .btn.upload-btn {
+      background: linear-gradient(135deg, var(--g-red), #f97316);
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 0.95rem;
+    }
+    .btn.download-btn {
+      background: linear-gradient(135deg, var(--g-green), #059669);
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 0.95rem;
+    }
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .art-card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .art-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .art-meta { padding: 14px; }
+    .art-meta h4 { margin: 0 0 6px; font-size: 1rem; }
+    .art-meta p { margin: 0 0 12px; font-size: 0.83rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="g-badge">🔵🔴🟡🟢 GOOGLE FAMILY DAY × SMILING CRITTERS</div>
+    <h1>Our Real-World Family ↔ Smiling Critters Merger Studio</h1>
+    <p class="subtitle">☀️ <b>SunnyFox</b> (Kunrui, Mom) • 🌙 <b>LunaBat</b> (Chuyu, Daughter) • 🍿 <b>PoppyDash</b> (Craig, Dad)</p>
+  </header>
+
+  <div class="container">
+    <div class="roster-grid">
+      <div class="member-card mom">
+        <img src="images/sunnyfox.jpg" alt="SunnyFox Mom" />
+        <div>
+          <span class="role-tag">KUNRUI • MOM</span>
+          <h3 style="margin:2px 0 4px;">SunnyFox (LanternFox)</h3>
+          <div style="font-size:0.82rem;color:#cbd5e1;">Golden-Orange Plush Fox • Glowing Lantern Pendant • Guides the family & captures every memory!</div>
+        </div>
+      </div>
+      <div class="member-card child">
+        <img src="images/lunabat.jpg" alt="LunaBat Chuyu" />
+        <div>
+          <span class="role-tag">CHUYU • DAUGHTER</span>
+          <h3 style="margin:2px 0 4px;">LunaBat (StarBat)</h3>
+          <div style="font-size:0.82rem;color:#cbd5e1;">Indigo-Violet Plush Bat • Quilted Wings & Moon-Star Charm • Google Propeller Hat & Rainbow Balloons!</div>
+        </div>
+      </div>
+      <div class="member-card dad">
+        <img src="images/poppydash.jpg" alt="PoppyDash Craig" />
+        <div>
+          <span class="role-tag">CRAIG • DAD</span>
+          <h3 style="margin:2px 0 4px;">PoppyDash (Popcorn Skunk)</h3>
+          <div style="font-size:0.82rem;color:#cbd5e1;">Charcoal & White Skunk • Golden Popcorn Pendant • Loves Popcorn & Running (Needs Floaties to Swim!)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="studio-panel">
+      <h2 style="margin:0 0 6px;">📸 Interactive Real-Photo + Smiling Critters Family Merger</h2>
+      <p style="margin:0 0 16px;color:var(--muted);font-size:0.9rem;">
+        Upload any real-world Google Family Day photo of <b>Kunrui, Chuyu &amp; Craig</b> from your iPad/phone/desktop to merge side-by-side or overlay with <b>SunnyFox, LunaBat &amp; PoppyDash</b>! Drag characters on the canvas to position them.
+      </p>
+      <div class="studio-layout">
+        <div class="canvas-box">
+          <canvas id="merger-canvas" width="1200" height="720"></canvas>
+        </div>
+        <div class="controls-col">
+          <div class="ctrl-group">
+            <h3>1. Choose Your Real Family Day Photo</h3>
+            <label class="btn upload-btn">
+              📂 Select Real Family Photo (iPad / Phone / Mac)
+              <input type="file" id="photo-input" accept="image/*" style="display:none;" />
+            </label>
+          </div>
+          <div class="ctrl-group">
+            <h3>2. Choose Merger Layout Mode</h3>
+            <div class="btn-grid">
+              <button class="btn active" onclick="setMode('split', this)">🪪 Split Mirror Card</button>
+              <button class="btn" onclick="setMode('overlay', this)">✨ Critters in Photo</button>
+              <button class="btn" onclick="setMode('roster', this)">🎴 3-Critter Family</button>
+              <button class="btn" onclick="setMode('gbike', this)">🚲 Google Gbike</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <h3>3. Choose Scene Background</h3>
+            <div class="btn-grid">
+              <button class="btn active" onclick="setBg(0, this)">🎈 Welcome Arch</button>
+              <button class="btn" onclick="setBg(1, this)">🏁 Carnival Race</button>
+              <button class="btn" onclick="setBg(2, this)">🚲 Gbike Ride</button>
+              <button class="btn" onclick="setBg(3, this)">🃏 Collector Cards</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <h3>4. Export Commemorative Card</h3>
+            <button class="btn download-btn" onclick="downloadCard()">⬇️ Save Merged Family Card (PNG)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="margin:0 0 14px;">🎨 Google Family Day × Smiling Critters Scenes</h2>
+    <div class="gallery-grid">
+      <div class="art-card">
+        <img src="images/family_day_01_welcome_arch.jpg" alt="Google Family Day Welcome Arch" />
+        <div class="art-meta">
+          <h4>1. Welcome to Google Family Day!</h4>
+          <p><b>SunnyFox (Kunrui - Mom)</b>, <b>LunaBat (Chuyu)</b>, and <b>PoppyDash (Craig - Dad)</b> hugging under the 4-color Google balloon arch with VIP lanyards and fresh popcorn.</p>
+          <a class="btn" href="images/family_day_01_welcome_arch.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card">
+        <img src="images/family_day_02_carnival_race.jpg" alt="Google Family Day Carnival Race" />
+        <div class="art-meta">
+          <h4>2. Family Day Carnival &amp; Sack Race</h4>
+          <p>Dad <b>PoppyDash (Craig)</b> shows off his running hobby tossing golden popcorn while <b>LunaBat (Chuyu)</b> glides with a Google lollipop and Mom <b>SunnyFox (Kunrui)</b> snaps the photo!</p>
+          <a class="btn" href="images/family_day_02_carnival_race.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card">
+        <img src="images/family_day_03_gbike_ride.jpg" alt="Google Family Day Gbike Ride" />
+        <div class="art-meta">
+          <h4>3. Tandem Google Gbike Campus Ride</h4>
+          <p>Mom <b>SunnyFox</b> steers, <b>LunaBat (Chuyu)</b> waves the Google flag in the middle, and Dad <b>PoppyDash</b> pedals in back with his popcorn bucket &amp; ducky swim ring!</p>
+          <a class="btn" href="images/family_day_03_gbike_ride.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+      <div class="art-card">
+        <img src="images/family_day_04_collector_roster.jpg" alt="Smiling Critters Family Collector Roster" />
+        <div class="art-meta">
+          <h4>4. Official Family Collector Cards</h4>
+          <p>Side-by-side Google Family Day trading cards for <b>SUNNYFOX — KUNRUI (MOM)</b>, <b>LUNABAT — CHUYU (DAUGHTER)</b>, and <b>POPPYDASH — CRAIG (DAD)</b>.</p>
+          <a class="btn" href="images/family_day_04_collector_roster.jpg" download>⬇️ Download High-Res</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("merger-canvas");
+    const ctx = canvas.getContext("2d");
+    const bgUrls = [
+      "images/family_day_01_welcome_arch.jpg",
+      "images/family_day_02_carnival_race.jpg",
+      "images/family_day_03_gbike_ride.jpg",
+      "images/family_day_04_collector_roster.jpg"
+    ];
+    const bgs = bgUrls.map(u => { const img = new Image(); img.onload = draw; img.src = u; return img; });
+    const avatars = [
+      { name: "KUNRUI (SunnyFox)", color: "#f97316", src: "images/sunnyfox.jpg", x: 140, y: 560, r: 68 },
+      { name: "CHUYU (LunaBat)", color: "#a855f7", src: "images/lunabat.jpg", x: 310, y: 560, r: 68 },
+      { name: "CRAIG (PoppyDash)", color: "#22c55e", src: "images/poppydash.jpg", x: 480, y: 560, r: 68 }
+    ];
+    avatars.forEach(a => { const img = new Image(); img.onload = draw; img.src = a.src; a.img = img; });
+
+    let userPhoto = null;
+    let mode = "split";
+    let bgIdx = 0;
+    let dragging = null;
+
+    document.getElementById("photo-input").addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = new Image();
+        img.onload = () => { userPhoto = img; draw(); };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function setMode(m, btn) {
+      mode = m;
+      btn.parentElement.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      draw();
+    }
+    function setBg(idx, btn) {
+      bgIdx = idx;
+      btn.parentElement.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      draw();
+    }
+
+    function drawCover(img, x, y, w, h) {
+      if (!img || !img.complete || !img.naturalWidth) return;
+      const ir = img.naturalWidth / img.naturalHeight;
+      const br = w / h;
+      let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+      if (ir > br) { sw = img.naturalHeight * br; sx = (img.naturalWidth - sw) / 2; }
+      else { sh = img.naturalWidth / br; sy = (img.naturalHeight - sh) / 2; }
+      ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+    }
+
+    function draw() {
+      ctx.fillStyle = "#0f172a";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Google 4-color top bar
+      const colors = ["#4285F4", "#EA4335", "#FBBC05", "#34A853"];
+      colors.forEach((c, i) => {
+        ctx.fillStyle = c;
+        ctx.fillRect(i * 300, 0, 300, 12);
+      });
+
+      const activeBg = bgs[bgIdx];
+
+      if (mode === "split") {
+        // Left side: Real Family Photo (or prompt), Right side: Smiling Critters Family Scene
+        if (userPhoto) {
+          drawCover(userPhoto, 24, 32, 564, 600);
+        } else {
+          ctx.fillStyle = "#1e293b";
+          ctx.fillRect(24, 32, 564, 600);
+          ctx.strokeStyle = "#4285F4";
+          ctx.lineWidth = 3;
+          ctx.strokeRect(24, 32, 564, 600);
+          ctx.fillStyle = "#f8fafc";
+          ctx.font = "bold 24px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("📸 Tap 'Select Real Family Photo'", 306, 290);
+          ctx.font = "17px sans-serif";
+          ctx.fillStyle = "#cbd5e1";
+          ctx.fillText("Your Google Family Day photo appears here", 306, 325);
+          ctx.fillText("side-by-side with SunnyFox, LunaBat & PoppyDash!", 306, 352);
+        }
+        drawCover(activeBg, 612, 32, 564, 600);
+      } else if (mode === "overlay" && userPhoto) {
+        drawCover(userPhoto, 24, 32, 1152, 600);
+      } else {
+        drawCover(activeBg, 24, 32, 1152, 600);
+      }
+
+      // Draw draggable circular Critter badges
+      avatars.forEach(a => {
+        if (!a.img || !a.img.complete) return;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(a.img, a.x - a.r, a.y - a.r, a.r * 2, a.r * 2);
+        ctx.restore();
+
+        ctx.strokeStyle = a.color;
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(15,23,42,0.9)";
+        ctx.fillRect(a.x - 74, a.y + a.r - 16, 148, 24);
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(a.name, a.x, a.y + a.r);
+      });
+
+      // Bottom Footer Banner
+      ctx.fillStyle = "#090d16";
+      ctx.fillRect(0, 648, 1200, 72);
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 21px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("GOOGLE FAMILY DAY • KUNRUI (SunnyFox) • CHUYU (LunaBat) • CRAIG (PoppyDash)", 600, 691);
+    }
+
+    canvas.addEventListener("pointerdown", e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+      for (let i = avatars.length - 1; i >= 0; i--) {
+        const a = avatars[i];
+        if (Math.hypot(mx - a.x, my - a.y) <= a.r + 12) {
+          dragging = a;
+          break;
+        }
+      }
+    });
+    canvas.addEventListener("pointermove", e => {
+      if (!dragging) return;
+      const rect = canvas.getBoundingClientRect();
+      dragging.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+      dragging.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+      draw();
+    });
+    window.addEventListener("pointerup", () => { dragging = null; });
+
+    function downloadCard() {
+      const a = document.createElement("a");
+      a.download = "Google_Family_Day_Smiling_Critters_Kunrui_Chuyu_Craig.png";
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    }
+  </script>
+</body>
+</html>
