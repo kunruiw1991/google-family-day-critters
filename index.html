@@ -312,46 +312,46 @@
   </header>
 
   <div class="container">
-    <!-- SECTION 1: 1985-2000 CLASSIC VERTICAL ARCADE SHOOT-'EM-UP GAME -->
+    <!-- SECTION 1: CHUYU'S SOLO STARLIGHT PLANE + RANDOM FAMILY/CRITTER SKY HELPERS VS. POPPY PLAYTIME CH.1 & CH.2 -->
     <section class="arcade-shell" id="arcade-sec">
       <div class="arcade-marquee">
-        <div class="marquee-title">🎈 COZY 5-YEAR-OLD SKY ADVENTURE — ZERO DIZZINESS GENTLE MODE (专为5岁初语设计的慢速防眩晕模式)</div>
+        <div class="marquee-title">🦇 CHUYU'S SKY BATTLE VS. POPPY PLAYTIME CH.1 &amp; CH.2 — WITH MOM, DAD &amp; CRITTERS HELPERS! (5岁防眩晕微战斗模式)</div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <button class="btn active" onclick="setGameSpeed(0.32, this)">🐌 5yo Super Gentle (Default)</button>
-          <button class="btn" onclick="setGameSpeed(0.6, this)">🐢 Slow Breeze</button>
+          <button class="btn" onclick="setGameSpeed(0.58, this)">🐢 Normal Mild Battle</button>
           <button class="btn" onclick="setGameSpeed(0, this)">⏸️ Pause Motion</button>
           <button class="btn active" id="audio-toggle" onclick="toggleAudio()">🔊 Soft Chimes: ON</button>
         </div>
       </div>
 
-      <!-- 4 PLAYABLE PILOTS (OR FULL FAMILY SQUADRON) -->
+      <!-- MAIN SOLO PILOT (CHUYU) + 3 INSTANT/RANDOM SKY HELPER SUMMON CARDS -->
       <div class="pilot-selector">
-        <div class="pilot-card active" onclick="selectPilot(0, this)">
-          <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Family Squadron" />
+        <div class="pilot-card active" onclick="summonSpecificHelper('random', this)">
+          <img src="images/lunabat.jpg" alt="LunaBat Chuyu Solo Pilot" />
           <div class="pilot-info">
-            <h4>✈️ FAMILY TRIO PLANE (全家同乘飞机)</h4>
-            <p>Kunrui + Chuyu + Craig flying gently together! Floats Lantern Stars + Peace Hearts + Popcorn!</p>
+            <h4>🌙 MAIN PILOT: CHUYU (LunaBat ✌️)</h4>
+            <p>Chuyu flies her solo purple Starlight Plane! Mom, Dad &amp; Critters randomly fly in to help!</p>
           </div>
         </div>
-        <div class="pilot-card" onclick="selectPilot(1, this)">
-          <img src="images/sunnyfox.jpg" alt="SunnyFox Mom" />
+        <div class="pilot-card" onclick="summonSpecificHelper('mom', this)">
+          <img src="images/sunnyfox.jpg" alt="SunnyFox Mom Helper" />
           <div class="pilot-info">
-            <h4>☀️ SUNNYFOX (Kunrui • Mom)</h4>
-            <p>Floats warm Golden Lantern Stars • Gentle Rainbow Wave!</p>
+            <h4>☀️ CALL MOM TO SKY (SunnyFox 🏮)</h4>
+            <p>Tap to call Mom's Lantern Jet right now! Shoots Golden Lantern Beams (2x vs. Huggy)!</p>
           </div>
         </div>
-        <div class="pilot-card" onclick="selectPilot(2, this)">
-          <img src="images/lunabat.jpg" alt="LunaBat Chuyu" />
+        <div class="pilot-card" onclick="summonSpecificHelper('dad', this)">
+          <img src="images/poppydash.jpg" alt="PoppyDash Craig Helper" />
           <div class="pilot-info">
-            <h4>🌙 LUNABAT (Chuyu • Daughter)</h4>
-            <p>Floats Peace-Sign (✌️) &amp; Crescent Moon Hearts that gently find balloons!</p>
+            <h4>🍿 CALL DAD TO SKY (PoppyDash 🐤)</h4>
+            <p>Tap to call Dad in his Yellow Ducky Ring! Shoots Triple Popcorn Rockets at bosses!</p>
           </div>
         </div>
-        <div class="pilot-card" onclick="selectPilot(3, this)">
-          <img src="images/poppydash.jpg" alt="PoppyDash Craig" />
+        <div class="pilot-card" onclick="summonSpecificHelper('critter', this)">
+          <img src="images/113_Camp_Google_Handcar_Critter_Transformation.jpg" alt="Smiling Critter Friends" />
           <div class="pilot-info">
-            <h4>🍿 POPPYDASH (Craig • Dad)</h4>
-            <p>Floats Buttered Popcorn • Wears his Yellow Ducky Swim Ring over Lake Tahoe!</p>
+            <h4>🐱🐶🐰 CALL CRITTER FRIENDS!</h4>
+            <p>Summons CatNap (🌙 Sleep Mist), DogDay (☀️), Hoppy (⚡), or Bobby BearHug (❤️ Heal)!</p>
           </div>
         </div>
       </div>
@@ -362,31 +362,32 @@
             <canvas id="shmup-canvas" width="600" height="800"></canvas>
           </div>
           <div class="touch-bar">
-            <button class="arcade-btn bomb" onclick="triggerBomb()">🌈 GENTLE RAINBOW POPCORN WAVE (全屏变爆米花)</button>
-            <button class="arcade-btn ducky" onclick="triggerDuckyRing()">🐤 CRAIG'S DUCKY SWIM RING (小黄鸭泳圈)</button>
-            <button class="arcade-btn coin" onclick="insertCoinPowerup()">⭐ ADD MORE POPCORN &amp; STARS</button>
+            <button class="arcade-btn bomb" onclick="triggerBomb()">🌈 FAMILY SUPER TEAM BEAM (全家彩虹合力大招)</button>
+            <button class="arcade-btn ducky" onclick="summonSpecificHelper('random')">📣 CALL MOM, DAD OR CRITTER FRIEND! (呼叫援军)</button>
+            <button class="arcade-btn coin" onclick="spawnNextChapterBoss()">👾 SPAWN CH.1 / CH.2 BOSS NOW (召唤大怪兽)</button>
           </div>
         </div>
 
         <div class="arcade-sidebar">
-          <h3 style="margin:0;color:#facc15;">🎈 CHUYU'S GENTLE FLIGHT HUD</h3>
-          <div class="stat-row"><span>BALLOONS POPPED</span><span id="hud-score" style="color:#fef08a;">0</span></div>
-          <div class="stat-row"><span>POPCORN TREATS</span><span id="hud-combo" style="color:#f472b6;">0 🍿</span></div>
+          <h3 style="margin:0;color:#facc15;">🦇 CHUYU'S BATTLE HUD</h3>
+          <div class="stat-row"><span>MAIN PILOT</span><span style="color:#c084fc;">🌙 Chuyu (LunaBat Solo)</span></div>
+          <div class="stat-row"><span>ACTIVE SKY HELPERS</span><span id="hud-helpers" style="color:#4ade80;">🎲 Arriving in sky...</span></div>
+          <div class="stat-row"><span>CH.1 &amp; 2 BAD GUYS TAMED</span><span id="hud-score" style="color:#fef08a;">0 🧸</span></div>
+          <div class="stat-row"><span>POPCORN &amp; STARS</span><span id="hud-combo" style="color:#f472b6;">0 🍿</span></div>
+          <div class="stat-row"><span>CHUYU'S COZY HEARTS</span><span id="hud-hearts" style="color:#fb7185;">❤️❤️❤️❤️❤️ (5/5)</span></div>
           <div class="stat-row"><span>PACING SPEED</span><span id="hud-power" style="color:#4ade80;">🐌 5yo GENTLE (NO DIZZINESS)</span></div>
-          <div class="stat-row"><span>RAINBOW WAVES</span><span id="hud-bombs">🌈 🍿 ☀️ (∞)</span></div>
-          <div class="stat-row"><span>CRAIG'S TAIL</span><span id="hud-tail" style="color:#38bdf8;">🐤 DRY IN DUCKY RING!</span></div>
 
-          <h3 style="margin:6px 0 2px;color:#facc15;">🗺️ CHOOSE COZY SKY BACKDROP</h3>
-          <button class="stage-pill active" id="st-btn-0" onclick="setStage(0)">SCENE 1: 🚌 Cozy Blue Twilight &amp; Google Balloons</button>
-          <button class="stage-pill" id="st-btn-1" onclick="setStage(1)">SCENE 2: 🌲 Camp Google Redwoods &amp; Lake Tahoe</button>
-          <button class="stage-pill" id="st-btn-2" onclick="setStage(2)">SCENE 3: 🌉 San Francisco ✈️ Boston Pastel Sky</button>
-          <button class="stage-pill" id="st-btn-3" onclick="setStage(3)">SCENE 4: 🎡 Google Family Day Rainbow Picnic</button>
+          <h3 style="margin:6px 0 2px;color:#facc15;">👾 CHOOSE POPPY PLAYTIME CH.1 &amp; CH.2 BOSS</h3>
+          <button class="stage-pill active" id="st-btn-0" onclick="selectBossWave(0)">🟦 CH.1 BOSS: Huggy Wuggy (Goofy Plush &amp; GrabPack Hands)</button>
+          <button class="stage-pill" id="st-btn-1" onclick="selectBossWave(1)">🩷 CH.2 BOSS: Mommy Long Legs (Stretchy Pink Noodle Arms)</button>
+          <button class="stage-pill" id="st-btn-2" onclick="selectBossWave(2)">🐰🥁 CH.2 MINI-BOSS: Bunzo Bunny (Clapping Golden Cymbals)</button>
+          <button class="stage-pill" id="st-btn-3" onclick="selectBossWave(3)">🐛🐶 CH.2 MINI-BOSS: PJ Pug-a-Pillar (Wiggly Pug Caterpillar)</button>
 
           <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;background:rgba(0,0,0,0.35);padding:10px;border-radius:10px;">
-            <b>👶 Designed for a 5-Year-Old (Anti-Dizziness):</b><br/>
-            • <b>Zero scrolling stripes</b> and <b>zero screen flashing</b>.<br/>
-            • Only <b>2–3 large, slow-floating balloons &amp; soap bubbles</b> drift down at a time.<br/>
-            • Gently touch anywhere on the screen to guide the family plane and catch floating <b>🍿 Popcorn</b> and <b>🐤 Rubber Duckies</b>!
+            <b>👶 Mild 5-Year-Old Boss Battle Rules:</b><br/>
+            • <b>Chuyu (LunaBat)</b> flies her solo purple airplane in the center.<br/>
+            • <b>Mom (SunnyFox)</b>, <b>Dad (PoppyDash)</b>, and <b>CatNap / DogDay / Hoppy / Bobby</b> randomly fly in on her left &amp; right wings to shoot together!<br/>
+            • Bad guys from <b>Poppy Playtime Ch. 1 &amp; 2</b> wobble when hit and turn into <b>Happy Sleeping Plushies with Pink Ribbons (🎀💤)</b> when their HP reaches 0!
           </div>
         </div>
       </div>
@@ -565,36 +566,170 @@
 
     const STAGES = [
       {
-        name: "SCENE 1: COZY BLUE TWILIGHT & GOOGLE BALLOONS",
+        name: "CH.1 TOY FACTORY SKY: HUGGY WUGGY'S PLAYROOM",
         skyTop: "#1e1b4b", skyBot: "#312e81",
-        waterHazard: false
+        bossKey: "huggy"
       },
       {
-        name: "SCENE 2: CAMP GOOGLE REDWOODS & LAKE TAHOE",
+        name: "CH.2 GAME STATION SKY: MOMMY LONG LEGS' WEB PARK",
+        skyTop: "#3b0764", skyBot: "#831843",
+        bossKey: "mommy"
+      },
+      {
+        name: "CH.2 MUSICAL MEMORY SKY: BUNZO BUNNY'S CYMBAL STAGE",
         skyTop: "#064e3b", skyBot: "#0369a1",
-        waterHazard: true
+        bossKey: "bunzo"
       },
       {
-        name: "SCENE 3: SAN FRANCISCO ✈️ BOSTON PASTEL SKY",
-        skyTop: "#3b0764", skyBot: "#9a3412",
-        waterHazard: false
-      },
-      {
-        name: "SCENE 4: GOOGLE FAMILY DAY RAINBOW PICNIC",
+        name: "CH.2 STATUES SKY: PJ PUG-A-PILLAR'S STARLIGHT TRAIL",
         skyTop: "#1e3a8a", skyBot: "#3730a3",
-        waterHazard: false
+        bossKey: "pjpug"
       }
     ];
 
-    let currentPilot = 0;
+    const HELPER_ROSTER = [
+      {
+        id: "mom",
+        name: "MOM (SunnyFox)",
+        shortName: "🦊 Mom (SunnyFox)",
+        wingColor: "#f97316",
+        borderColor: "#fde047",
+        imgKey: "mom",
+        emoji: "🦊",
+        bulletIcon: "☀️",
+        bulletDmg: 2,
+        callout: "🦊🏮 Mom (SunnyFox) flew in to help Chuyu! Shooting Golden Lantern Sunbeams! ☀️"
+      },
+      {
+        id: "dad",
+        name: "DAD (PoppyDash)",
+        shortName: "🦨 Dad (PoppyDash)",
+        wingColor: "#1e293b",
+        borderColor: "#22c55e",
+        imgKey: "dad",
+        emoji: "🦨",
+        bulletIcon: "🍿",
+        bulletDmg: 2,
+        hasDuckyRing: true,
+        callout: "🦨🍿 Dad (PoppyDash) arrived in his Yellow Ducky Ring! Launching Triple Popcorn! 🐤"
+      },
+      {
+        id: "catnap",
+        name: "CATNAP 🌙",
+        shortName: "🐱 CatNap",
+        wingColor: "#6d28d9",
+        borderColor: "#c084fc",
+        imgKey: null,
+        emoji: "🐱",
+        badgeEmoji: "🌙",
+        bulletIcon: "💤",
+        bulletDmg: 1.5,
+        slowsEnemy: true,
+        callout: "🐱🌙 Friend CatNap arrived! Puffing Lavender Sleep Mist to make Ch.1 & 2 bosses sleepy!"
+      },
+      {
+        id: "dogday",
+        name: "DOGDAY ☀️",
+        shortName: "🐶 DogDay",
+        wingColor: "#ea580c",
+        borderColor: "#facc15",
+        imgKey: null,
+        emoji: "🐶",
+        badgeEmoji: "☀️",
+        bulletIcon: "🥏",
+        bulletDmg: 1.5,
+        callout: "🐶☀️ Friend DogDay flew to Chuyu's wing! Throwing Sunny Vanilla Frisbees!"
+      },
+      {
+        id: "hoppy",
+        name: "HOPPY ⚡",
+        shortName: "🐰 Hoppy",
+        wingColor: "#16a34a",
+        borderColor: "#86efac",
+        imgKey: null,
+        emoji: "🐰",
+        badgeEmoji: "⚡",
+        bulletIcon: "⚡",
+        bulletDmg: 1.5,
+        callout: "🐰⚡ Friend Hoppy Hopscotch bounced into the sky! Shooting Green Lightning Stars!"
+      },
+      {
+        id: "bobby",
+        name: "BOBBY ❤️",
+        shortName: "🐻 Bobby BearHug",
+        wingColor: "#e11d48",
+        borderColor: "#fda4af",
+        imgKey: null,
+        emoji: "🐻",
+        badgeEmoji: "❤️",
+        bulletIcon: "❤️",
+        bulletDmg: 1.5,
+        healsChuyu: true,
+        callout: "🐻❤️ Friend Bobby BearHug arrived! Healing Chuyu's Cozy Hearts to 5/5!"
+      }
+    ];
+
+    const BOSS_TEMPLATES = {
+      huggy: {
+        key: "huggy",
+        name: "HUGGY WUGGY (Ch.1 Boss)",
+        chapter: "POPPY PLAYTIME CH. 1",
+        maxHp: 6,
+        color: "#1d4ed8",
+        accent: "#facc15",
+        projIcon: "🖐️",
+        projName: "GrabPack Foam Hand",
+        hitQuotes: ["🟦 Ooh! Popcorn tickles!", "🟦 My fuzzy blue tummy is full!", "🟦 So bright lantern!"],
+        tamedQuote: "🎀💤 Huggy Wuggy got a big pink bow & fell fast asleep!"
+      },
+      mommy: {
+        key: "mommy",
+        name: "MOMMY LONG LEGS (Ch.2 Boss)",
+        chapter: "POPPY PLAYTIME CH. 2",
+        maxHp: 7,
+        color: "#ec4899",
+        accent: "#4ade80",
+        projIcon: "🕸️",
+        projName: "Pink Elastic Bubble",
+        hitQuotes: ["🩷 Whoa! My stretchy arms!", "🩷 Yummy buttered popcorn!", "🩷 Getting so sleepy... 💤"],
+        tamedQuote: "🎀💤 Mommy Long Legs is tangled in rainbow ribbons & smiling!"
+      },
+      bunzo: {
+        key: "bunzo",
+        name: "BUNZO BUNNY (Ch.2 Musical)",
+        chapter: "POPPY PLAYTIME CH. 2",
+        maxHp: 4,
+        color: "#eab308",
+        accent: "#22c55e",
+        projIcon: "🎵",
+        projName: "Golden Cymbal Note",
+        hitQuotes: ["🐰🥁 Clang! Happy music!", "🐰🥁 Yay! Starlight peace sign!", "🐰🥁 Popcorn party!"],
+        tamedQuote: "🎀💤 Bunzo Bunny clapped his cymbals for Chuyu & took a nap!"
+      },
+      pjpug: {
+        key: "pjpug",
+        name: "PJ PUG-A-PILLAR (Ch.2 Boss)",
+        chapter: "POPPY PLAYTIME CH. 2",
+        maxHp: 5,
+        color: "#7c3aed",
+        accent: "#f472b6",
+        projIcon: "🧶",
+        projName: "Fuzzy Yarn Ball",
+        hitQuotes: ["🐛🐶 Woof! Belly tickles!", "🐛🐶 Wiggly pug loves popcorn!", "🐛🐶 Goodnight Chuyu!"],
+        tamedQuote: "🎀💤 PJ Pug-a-Pillar curled up like a cozy puppy!"
+      }
+    };
+
     let currentStage = 0;
-    let balloonsPopped = 0;
+    let bossesTamed = 0;
     let popcornCount = 0;
-    let duckyShieldTimer = 600;
+    let chuyuHearts = 5;
     let rainbowWaveRadius = 0;
-    let calloutText = "🎈 Gently touch & drag to guide the Family Plane!";
-    let calloutTimer = 240;
+    let calloutText = "🌙 Chuyu (LunaBat) is flying solo! Mom, Dad & Critters will fly in to help!";
+    let calloutTimer = 260;
     let frameCount = 0;
+    let bossWaveIndex = 0;
+    const bossOrder = ["huggy", "bunzo", "pjpug", "mommy"];
 
     const clouds = [
       { x: 130, y: 180, r: 52 },
@@ -602,84 +737,178 @@
       { x: 210, y: 520, r: 48 }
     ];
 
-    const player = { x: 300, y: 640, targetX: 300, targetY: 640 };
+    const player = { x: 300, y: 650, targetX: 300, targetY: 650 };
     const keys = {};
     const bullets = [];
-    const enemies = [];
+    const enemies = [];        // Active Ch.1 & Ch.2 Bosses + Mini Wuggys
+    const enemyProjectiles = []; // Slow, mild trouble bubbles thrown by bosses (shootable!)
+    const tamedPlushies = [];  // Defeated bosses floating away as happy sleeping plushies with ribbons
+    const activeHelpers = [];  // Up to 2 wingmen (left wing slot 0, right wing slot 1)
     const powerups = [];
     const floatTexts = [];
 
-    function selectPilot(idx, el) {
-      currentPilot = idx;
-      document.querySelectorAll(".pilot-card").forEach(c => c.classList.remove("active"));
-      if (el) el.classList.add("active");
-      const names = [
-        "✈️ FAMILY TRIO PLANE (Kunrui + Chuyu + Craig flying gently together!)",
-        "☀️ SUNNYFOX (Kunrui • Mom) — Warm Golden Lantern Stars!",
-        "🌙 LUNABAT (Chuyu • Daughter) — Peace-Sign (✌️) & Moon Hearts!",
-        "🍿 POPPYDASH (Craig • Dad) — Buttered Popcorn & Yellow Ducky Swim Ring!"
-      ];
-      showCallout(names[idx]);
-      playArcadeSound("popcorn");
+    function summonSpecificHelper(filterType, cardEl) {
+      if (cardEl) {
+        document.querySelectorAll(".pilot-card").forEach(c => c.classList.remove("active"));
+        cardEl.classList.add("active");
+      }
+      let pool = HELPER_ROSTER;
+      if (filterType === "mom") {
+        pool = HELPER_ROSTER.filter(h => h.id === "mom");
+      } else if (filterType === "dad") {
+        pool = HELPER_ROSTER.filter(h => h.id === "dad");
+      } else if (filterType === "critter") {
+        pool = HELPER_ROSTER.filter(h => h.id !== "mom" && h.id !== "dad");
+      }
+      // Prefer picking a helper not already on screen
+      const unused = pool.filter(h => !activeHelpers.some(ah => ah.spec.id === h.id));
+      const chosen = (unused.length > 0 ? unused : pool)[Math.floor(Math.random() * (unused.length > 0 ? unused.length : pool.length))];
+
+      // Assign to Left Wing (-94px) or Right Wing (+94px)
+      let slot = 0;
+      if (activeHelpers.length === 1) {
+        slot = activeHelpers[0].slot === 0 ? 1 : 0;
+      } else if (activeHelpers.length >= 2) {
+        // Replace the oldest helper
+        const removed = activeHelpers.shift();
+        slot = removed.slot;
+      }
+
+      const wingOffsetX = slot === 0 ? -96 : 96;
+      activeHelpers.push({
+        spec: chosen,
+        slot: slot,
+        x: player.x + wingOffsetX,
+        y: -50, // Swoops down from top of sky!
+        timer: 840 // Stays for ~14 seconds helping Chuyu
+      });
+
+      if (chosen.healsChuyu) {
+        chuyuHearts = 5;
+      }
+      playArcadeSound("ducky");
+      showCallout(chosen.callout);
+      floatTexts.push({
+        x: player.x + wingOffsetX,
+        y: player.y - 55,
+        text: "✨ " + chosen.shortName + " HERE TO HELP!",
+        color: "#fde047",
+        life: 85
+      });
+      updateHud();
     }
 
-    function setStage(idx) {
+    function selectBossWave(idx) {
       currentStage = idx;
       for (let i = 0; i < 4; i++) {
         const b = document.getElementById("st-btn-" + i);
         if (b) b.classList.toggle("active", i === idx);
       }
       enemies.length = 0;
-      if (STAGES[idx].waterHazard) {
-        duckyShieldTimer = 9999;
-        showCallout("🐤 LAKE TAHOE! Craig put on his Yellow Ducky Swim Ring so his tail stays dry!");
-      } else {
-        showCallout("🌈 Welcome to " + STAGES[idx].name + "!");
-      }
+      enemyProjectiles.length = 0;
+      const bKey = STAGES[idx].bossKey;
+      spawnBossEntity(bKey);
+      showCallout("👾 " + BOSS_TEMPLATES[bKey].name + " floated into the sky! Let's tame them with Chuyu & friends!");
       playArcadeSound("ducky");
+    }
+
+    function spawnNextChapterBoss() {
+      const bKey = bossOrder[bossWaveIndex % bossOrder.length];
+      bossWaveIndex++;
+      spawnBossEntity(bKey);
+      playArcadeSound("ducky");
+      showCallout("👾 NEW POPPY PLAYTIME BOSS: " + BOSS_TEMPLATES[bKey].name + " appeared!");
+    }
+
+    function spawnBossEntity(bossKey) {
+      // Remove existing main boss if already one so screen stays calm and uncluttered
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        if (enemies[i].isBoss) enemies.splice(i, 1);
+      }
+      const tpl = BOSS_TEMPLATES[bossKey] || BOSS_TEMPLATES.huggy;
+      enemies.push({
+        isBoss: true,
+        key: tpl.key,
+        name: tpl.name,
+        chapter: tpl.chapter,
+        hp: tpl.maxHp,
+        maxHp: tpl.maxHp,
+        x: 300,
+        y: -60,
+        targetY: 148,
+        baseX: 300,
+        phase: Math.random() * Math.PI * 2,
+        wobbleTimer: 0,
+        slowTimer: 0,
+        tpl: tpl
+      });
+    }
+
+    function spawnMiniWuggy() {
+      if (enemies.filter(e => !e.isBoss).length >= 2) return;
+      const colors = [
+        { c: "#2563eb", name: "Blue Mini Wuggy" },
+        { c: "#16a34a", name: "Green Mini Wuggy" },
+        { c: "#eab308", name: "Yellow Mini Wuggy" },
+        { c: "#ec4899", name: "Pink Kissy Plush" }
+      ];
+      const pick = colors[Math.floor(Math.random() * colors.length)];
+      const ex = 110 + Math.random() * 380;
+      enemies.push({
+        isBoss: false,
+        key: "miniwuggy",
+        name: pick.name,
+        hp: 2,
+        maxHp: 2,
+        color: pick.c,
+        x: ex,
+        y: -35,
+        baseX: ex,
+        vy: 0.34 * (gameSpeed / 0.32 || 0.5),
+        phase: Math.random() * Math.PI * 2,
+        wobbleTimer: 0,
+        slowTimer: 0
+      });
     }
 
     function showCallout(msg) {
       calloutText = msg;
-      calloutTimer = 240;
+      calloutTimer = 260;
     }
 
     function triggerBomb() {
-      // NO screen flashing! Just a slow, gentle expanding rainbow circle
-      rainbowWaveRadius = 10;
+      // Gentle expanding rainbow ring + calls both Mom and Dad if not present!
+      rainbowWaveRadius = 12;
       playArcadeSound("bomb");
-      showCallout("🌈 GENTLE RAINBOW WAVE! All balloons turned into yummy Popcorn! 🍿");
-      enemies.forEach(en => {
-        powerups.push({ x: en.x, y: en.y, vy: 0.45, kind: "popcorn" });
-      });
-      enemies.length = 0;
-      updateHud();
-    }
-
-    function triggerDuckyRing() {
-      duckyShieldTimer = 9999;
-      playArcadeSound("ducky");
-      showCallout("🐤 Craig's Yellow Rubber-Ducky Swim Ring is cozy and dry! 🍿");
-      updateHud();
-    }
-
-    function insertCoinPowerup() {
-      for (let i = 0; i < 4; i++) {
-        powerups.push({
-          x: 120 + i * 115,
-          y: 220 + (i % 2) * 45,
-          vy: 0.4,
-          kind: i % 2 === 0 ? "popcorn" : "ducky"
-        });
+      if (activeHelpers.length < 2) {
+        summonSpecificHelper("mom");
+        summonSpecificHelper("dad");
       }
-      playArcadeSound("popcorn");
-      showCallout("⭐ Floating Popcorn & Rubber Duckies added for Chuyu!");
+      chuyuHearts = 5;
+      showCallout("🌈 FAMILY SUPER TEAM BEAM! Chuyu + Mom + Dad turned all trouble into Popcorn! 🍿");
+      enemyProjectiles.forEach(ep => {
+        powerups.push({ x: ep.x, y: ep.y, vy: 0.45, kind: "popcorn" });
+      });
+      enemyProjectiles.length = 0;
+
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        damageEnemy(i, 3, "🌈 Rainbow Team Beam!");
+      }
       updateHud();
     }
 
     function updateHud() {
-      document.getElementById("hud-score").textContent = String(balloonsPopped);
+      document.getElementById("hud-score").textContent = bossesTamed + " 🧸";
       document.getElementById("hud-combo").textContent = popcornCount + " 🍿";
+      document.getElementById("hud-hearts").textContent = "❤️".repeat(chuyuHearts) + " (" + chuyuHearts + "/5)";
+      const helperElem = document.getElementById("hud-helpers");
+      if (helperElem) {
+        if (activeHelpers.length === 0) {
+          helperElem.textContent = "🎲 Flying in soon...";
+        } else {
+          helperElem.textContent = activeHelpers.map(h => h.spec.shortName).join(" + ");
+        }
+      }
     }
 
     let isPointerDown = false;
@@ -700,42 +929,118 @@
     window.addEventListener("keydown", e => { keys[e.key.toLowerCase()] = true; });
     window.addEventListener("keyup", e => { keys[e.key.toLowerCase()] = false; });
 
-    function spawnPlayerBullets() {
+    // Spawn initial Huggy Wuggy Boss + Mom helper right away so Chuyu sees the action!
+    spawnBossEntity("huggy");
+    setTimeout(() => summonSpecificHelper("mom"), 600);
+
+    function spawnPlayerAndHelperBullets() {
       if (gameSpeed === 0) return;
-      const x = player.x;
-      const y = player.y - 42;
-      // Only 1 or 2 gentle slow-floating treats every ~1.2 seconds (zero bullet spam!)
-      if (currentPilot === 0) {
-        bullets.push({ x: x - 26, y: y, vx: -0.2, vy: -2.4 * (gameSpeed / 0.32), icon: "☀️", color: "#fde047" });
-        bullets.push({ x: x,      y: y - 8, vx: 0, vy: -2.5 * (gameSpeed / 0.32), icon: "✌️", color: "#f472b6", homing: true });
-        bullets.push({ x: x + 26, y: y, vx: 0.2, vy: -2.4 * (gameSpeed / 0.32), icon: "🍿", color: "#fef08a" });
-      } else if (currentPilot === 1) {
-        bullets.push({ x: x, y: y, vx: 0, vy: -2.5 * (gameSpeed / 0.32), icon: "☀️", color: "#fde047", homing: true });
-      } else if (currentPilot === 2) {
-        bullets.push({ x: x, y: y, vx: 0, vy: -2.5 * (gameSpeed / 0.32), icon: "✌️", color: "#f472b6", homing: true });
-      } else {
-        bullets.push({ x: x, y: y, vx: 0, vy: -2.5 * (gameSpeed / 0.32), icon: "🍿", color: "#fef08a", homing: true });
-      }
+      const mult = gameSpeed / 0.32;
+
+      // 1. Chuyu's Solo Starlight Plane always shoots Peace-Sign & Crescent Moon Star Beams!
+      bullets.push({
+        x: player.x - 14,
+        y: player.y - 46,
+        vx: -0.1,
+        vy: -2.8 * mult,
+        icon: "✌️",
+        dmg: 1,
+        homing: true,
+        from: "Chuyu"
+      });
+      bullets.push({
+        x: player.x + 14,
+        y: player.y - 46,
+        vx: 0.1,
+        vy: -2.8 * mult,
+        icon: "🌙",
+        dmg: 1,
+        homing: true,
+        from: "Chuyu"
+      });
+      playArcadeSound("shoot");
+
+      // 2. Every active Sky Helper (Mom, Dad, CatNap, DogDay, Hoppy, Bobby) shoots their signature helper attack!
+      activeHelpers.forEach(h => {
+        bullets.push({
+          x: h.x,
+          y: h.y - 34,
+          vx: 0,
+          vy: -2.9 * mult,
+          icon: h.spec.bulletIcon,
+          dmg: h.spec.bulletDmg,
+          slowsEnemy: Boolean(h.spec.slowsEnemy),
+          homing: true,
+          from: h.spec.shortName
+        });
+        // Dad's PoppyDash shoots a bonus side popcorn!
+        if (h.spec.id === "dad") {
+          bullets.push({
+            x: h.x + (h.slot === 0 ? -16 : 16),
+            y: h.y - 28,
+            vx: h.slot === 0 ? -0.25 : 0.25,
+            vy: -2.7 * mult,
+            icon: "🐤",
+            dmg: 1,
+            homing: true,
+            from: "Dad's Ducky"
+          });
+        }
+      });
     }
 
-    function spawnEnemies() {
-      if (gameSpeed === 0) return;
-      // Maximum 3 slow-floating balloons on screen at a time so it never feels crowded or dizzying!
-      if (enemies.length >= 3) return;
-      if (frameCount % 135 === 0) {
-        const st = STAGES[currentStage];
-        const ex = 95 + Math.random() * 410;
-        const isBubble = st.waterHazard && Math.random() < 0.45;
-        enemies.push({
-          x: ex,
-          y: -35,
-          baseX: ex,
-          phase: Math.random() * Math.PI * 2,
-          vy: (0.42 + Math.random() * 0.15) * (gameSpeed / 0.32),
-          isWater: isBubble,
-          icon: isBubble ? "🫧" : ["🎈", "🎁", "🌟", "🎪"][Math.floor(Math.random() * 4)],
-          color: isBubble ? "#38bdf8" : ["#EA4335", "#4285F4", "#FBBC05", "#34A853"][Math.floor(Math.random() * 4)]
+    function damageEnemy(idx, dmg, hitLabel) {
+      const en = enemies[idx];
+      if (!en) return;
+      en.hp -= dmg;
+      en.wobbleTimer = 18;
+      popcornCount += 1;
+      playArcadeSound("popcorn");
+
+      if (en.isBoss && en.tpl && en.hp > 0) {
+        const quote = en.tpl.hitQuotes[Math.floor(Math.random() * en.tpl.hitQuotes.length)];
+        floatTexts.push({ x: en.x, y: en.y - 48, text: quote, color: "#fef08a", life: 55 });
+      } else if (en.hp > 0) {
+        floatTexts.push({ x: en.x, y: en.y - 24, text: hitLabel || "✨ BONK! +🍿", color: "#fde047", life: 45 });
+      }
+
+      if (en.hp <= 0) {
+        bossesTamed++;
+        popcornCount += en.isBoss ? 8 : 3;
+        playArcadeSound("ducky");
+
+        // Turn defeated bad character into a Happy Sleeping Plushie with a Giant Pink Ribbon!
+        tamedPlushies.push({
+          x: en.x,
+          y: en.y,
+          name: en.name,
+          isBoss: en.isBoss,
+          color: en.color || (en.tpl ? en.tpl.color : "#3b82f6"),
+          life: 130
         });
+
+        // Drop Popcorn + Friend Whistle treats
+        const dropCount = en.isBoss ? 4 : 1;
+        for (let k = 0; k < dropCount; k++) {
+          powerups.push({
+            x: en.x + (k - (dropCount - 1) / 2) * 34,
+            y: en.y,
+            vy: 0.45 * (gameSpeed / 0.32 || 0.5),
+            kind: k === 0 && en.isBoss ? "whistle" : (k % 2 === 0 ? "popcorn" : "ducky")
+          });
+        }
+
+        if (en.isBoss && en.tpl) {
+          showCallout(en.tpl.tamedQuote);
+          // Schedule next Poppy Playtime Ch.1/Ch.2 Boss in ~3.5 seconds!
+          setTimeout(() => {
+            if (enemies.filter(e => e.isBoss).length === 0) {
+              spawnNextChapterBoss();
+            }
+          }, 3200);
+        }
+        enemies.splice(idx, 1);
+        updateHud();
       }
     }
 
@@ -748,7 +1053,7 @@
       sCtx.fillStyle = grad;
       sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
 
-      // 3 ultra-slow fluffy pastel clouds (moving at 0.12 px/frame — barely perceptible)
+      // 3 ultra-slow fluffy pastel clouds (0.12 px/frame — zero dizziness)
       sCtx.fillStyle = "rgba(255, 255, 255, 0.10)";
       clouds.forEach(c => {
         c.y += 0.12 * (gameSpeed / 0.32);
@@ -760,20 +1065,16 @@
         sCtx.fill();
       });
 
-      // Stationary cozy bottom scenery banner (Camp Google Redwoods & Lake Tahoe or Rainbow Arch)
-      sCtx.fillStyle = "rgba(15, 23, 42, 0.45)";
-      sCtx.fillRect(0, sCanvas.height - 46, sCanvas.width, 46);
+      // Bottom cozy footer bar
+      sCtx.fillStyle = "rgba(15, 23, 42, 0.52)";
+      sCtx.fillRect(0, sCanvas.height - 44, sCanvas.width, 44);
       sCtx.fillStyle = "#fde047";
-      sCtx.font = "bold 13px sans-serif";
+      sCtx.font = "bold 12px sans-serif";
       sCtx.textAlign = "center";
-      if (currentStage === 1) {
-        sCtx.fillText("🌲 CAMP GOOGLE REDWOODS   •   🐤 CALIFORNIA LAKE TAHOE   •   🍿 FAMILY DAY", sCanvas.width / 2, sCanvas.height - 18);
-      } else {
-        sCtx.fillText("☀️ KUNRUI (SunnyFox)   •   🌙 CHUYU (LunaBat)   •   🍿 CRAIG (PoppyDash)", sCanvas.width / 2, sCanvas.height - 18);
-      }
+      sCtx.fillText("🌙 SOLO PILOT: CHUYU (LunaBat)   •   🦊🦨🐱🐶 SKY HELPERS: MOM, DAD & CRITTERS", sCanvas.width / 2, sCanvas.height - 17);
     }
 
-    function drawCircleAvatar(img, cx, cy, r, borderColor) {
+    function drawCircleAvatar(img, cx, cy, r, borderColor, fallbackEmoji) {
       sCtx.save();
       sCtx.beginPath();
       sCtx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -784,6 +1085,12 @@
       } else {
         sCtx.fillStyle = borderColor;
         sCtx.fill();
+        if (fallbackEmoji) {
+          sCtx.font = Math.round(r * 1.15) + "px sans-serif";
+          sCtx.textAlign = "center";
+          sCtx.textBaseline = "middle";
+          sCtx.fillText(fallbackEmoji, cx, cy + 2);
+        }
       }
       sCtx.restore();
       sCtx.strokeStyle = borderColor;
@@ -793,47 +1100,318 @@
       sCtx.stroke();
     }
 
-    function drawPlayerJet() {
+    function drawPoppyPlaytimeBoss(en) {
+      sCtx.save();
+      const wobbleAngle = en.wobbleTimer > 0 ? Math.sin(en.wobbleTimer * 0.9) * 0.16 : 0;
+      sCtx.translate(en.x, en.y);
+      sCtx.rotate(wobbleAngle);
+
+      if (en.key === "huggy") {
+        // 🟦 CHAPTER 1 BOSS: HUGGY WUGGY (Fuzzy Blue Plush with Bendy Arms & Yellow Hands + Cyan Bowtie)
+        const armWave = Math.sin(frameCount * 0.04) * 14;
+        sCtx.strokeStyle = "#2563eb";
+        sCtx.lineWidth = 14;
+        sCtx.lineCap = "round";
+        // Left & Right Bendy Blue Arms
+        sCtx.beginPath();
+        sCtx.moveTo(-28, 8);
+        sCtx.quadraticCurveTo(-68, -10 + armWave, -86, 18 + armWave);
+        sCtx.moveTo(28, 8);
+        sCtx.quadraticCurveTo(68, -10 - armWave, 86, 18 - armWave);
+        sCtx.stroke();
+        // Yellow Plush Hands
+        sCtx.fillStyle = "#facc15";
+        sCtx.beginPath();
+        sCtx.arc(-86, 18 + armWave, 13, 0, Math.PI * 2);
+        sCtx.arc(86, 18 - armWave, 13, 0, Math.PI * 2);
+        sCtx.fill();
+
+        // Fuzzy Royal-Blue Torso & Triangular Head
+        sCtx.fillStyle = "#1d4ed8";
+        sCtx.beginPath();
+        sCtx.roundRect(-34, -2, 68, 48, 18);
+        sCtx.fill();
+        sCtx.beginPath();
+        sCtx.arc(0, -18, 40, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.strokeStyle = "#60a5fa";
+        sCtx.lineWidth = 3;
+        sCtx.stroke();
+
+        // Cyan Bowtie
+        sCtx.fillStyle = "#38bdf8";
+        sCtx.beginPath();
+        sCtx.moveTo(0, 12); sCtx.lineTo(-18, 4); sCtx.lineTo(-18, 20); sCtx.closePath();
+        sCtx.moveTo(0, 12); sCtx.lineTo(18, 4); sCtx.lineTo(18, 20); sCtx.closePath();
+        sCtx.fill();
+
+        // Big Goofy Cartoon Eyes
+        sCtx.fillStyle = "#fff";
+        sCtx.beginPath();
+        sCtx.arc(-14, -24, 10, 0, Math.PI * 2);
+        sCtx.arc(14, -24, 10, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#0f172a";
+        sCtx.beginPath();
+        sCtx.arc(-14, -24, 5, 0, Math.PI * 2);
+        sCtx.arc(14, -24, 5, 0, Math.PI * 2);
+        sCtx.fill();
+
+        // Big Silly Red Cartoon Smile (non-scary plush grin)
+        sCtx.fillStyle = "#ef4444";
+        sCtx.beginPath();
+        sCtx.arc(0, -8, 18, 0.1 * Math.PI, 0.9 * Math.PI);
+        sCtx.fill();
+        sCtx.fillStyle = "#fff";
+        sCtx.fillRect(-10, -6, 20, 5);
+      } else if (en.key === "mommy") {
+        // 🩷 CHAPTER 2 BOSS: MOMMY LONG LEGS (Stretchy Pink Elastic Noodles, Green Eyes & High Ponytail)
+        const wave = Math.sin(frameCount * 0.045) * 16;
+        sCtx.strokeStyle = "#f472b6";
+        sCtx.lineWidth = 10;
+        sCtx.lineCap = "round";
+        // 4 Stretchy Pink Noodle Limbs
+        [-1, 1].forEach(dir => {
+          sCtx.beginPath();
+          sCtx.moveTo(dir * 26, -4);
+          sCtx.bezierCurveTo(dir * 65, -28 + wave, dir * 75, 22 - wave, dir * 92, 6 + wave);
+          sCtx.stroke();
+          sCtx.beginPath();
+          sCtx.moveTo(dir * 20, 18);
+          sCtx.bezierCurveTo(dir * 55, 42 - wave, dir * 70, 14 + wave, dir * 82, 36 - wave);
+          sCtx.stroke();
+        });
+
+        // Ponytail with Baby-Blue Hair Tie
+        sCtx.fillStyle = "#be185d";
+        sCtx.beginPath();
+        sCtx.arc(0, -52, 18, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#38bdf8";
+        sCtx.fillRect(-12, -40, 24, 7);
+
+        // Pink Round Plush Head & Body
+        sCtx.fillStyle = "#ec4899";
+        sCtx.beginPath();
+        sCtx.arc(0, -14, 36, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.strokeStyle = "#fbcfe8";
+        sCtx.lineWidth = 3;
+        sCtx.stroke();
+
+        // Bright Green Cartoon Eyes
+        sCtx.fillStyle = "#4ade80";
+        sCtx.beginPath();
+        sCtx.arc(-13, -18, 9, 0, Math.PI * 2);
+        sCtx.arc(13, -18, 9, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#064e3b";
+        sCtx.beginPath();
+        sCtx.arc(-13, -18, 4, 0, Math.PI * 2);
+        sCtx.arc(13, -18, 4, 0, Math.PI * 2);
+        sCtx.fill();
+
+        // Pink Lipstick Smile
+        sCtx.strokeStyle = "#9d174d";
+        sCtx.lineWidth = 3;
+        sCtx.beginPath();
+        sCtx.arc(0, -6, 14, 0.15 * Math.PI, 0.85 * Math.PI);
+        sCtx.stroke();
+      } else if (en.key === "bunzo") {
+        // 🐰🥁 CHAPTER 2: BUNZO BUNNY (Yellow Bunny with Green Overalls & Clapping Golden Cymbals)
+        const clap = Math.abs(Math.sin(frameCount * 0.05)) * 22;
+        // Tall Yellow Bunny Ears
+        sCtx.fillStyle = "#facc15";
+        sCtx.beginPath();
+        sCtx.ellipse(-14, -52, 9, 24, -0.15, 0, Math.PI * 2);
+        sCtx.ellipse(14, -52, 9, 24, 0.15, 0, Math.PI * 2);
+        sCtx.fill();
+        // Head & Green Overalls
+        sCtx.beginPath();
+        sCtx.arc(0, -14, 34, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#22c55e";
+        sCtx.fillRect(-24, 8, 48, 24);
+        // Clapping Golden Cymbals on Left & Right
+        sCtx.fillStyle = "#fde047";
+        sCtx.strokeStyle = "#ca8a04";
+        sCtx.lineWidth = 3;
+        sCtx.beginPath();
+        sCtx.ellipse(-42 - clap, 0, 10, 24, 0.2, 0, Math.PI * 2);
+        sCtx.ellipse(42 + clap, 0, 10, 24, -0.2, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.stroke();
+        // Cute Eyes & Buck Teeth
+        sCtx.fillStyle = "#0f172a";
+        sCtx.beginPath();
+        sCtx.arc(-11, -18, 5, 0, Math.PI * 2);
+        sCtx.arc(11, -18, 5, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#fff";
+        sCtx.fillRect(-7, -4, 14, 8);
+      } else if (en.key === "pjpug") {
+        // 🐛🐶 CHAPTER 2: PJ PUG-A-PILLAR (Wiggly Blue & Magenta Segmented Caterpillar Pug)
+        for (let seg = 4; seg >= 1; seg--) {
+          const sx = seg * 24 * (seg % 2 === 0 ? 1 : -1) * 0.55;
+          const sy = -seg * 6 + Math.sin(frameCount * 0.05 + seg) * 8;
+          sCtx.fillStyle = seg % 2 === 0 ? "#2563eb" : "#db2777";
+          sCtx.beginPath();
+          sCtx.arc(sx, sy, 24, 0, Math.PI * 2);
+          sCtx.fill();
+        }
+        // Front Pug Head
+        sCtx.fillStyle = "#3b82f6";
+        sCtx.beginPath();
+        sCtx.arc(0, 0, 32, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#fff";
+        sCtx.beginPath();
+        sCtx.arc(-11, -6, 8, 0, Math.PI * 2);
+        sCtx.arc(11, -6, 8, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.fillStyle = "#0f172a";
+        sCtx.beginPath();
+        sCtx.arc(-11, -6, 4, 0, Math.PI * 2);
+        sCtx.arc(11, -6, 4, 0, Math.PI * 2);
+        sCtx.fill();
+        // Pink Puppy Tongue
+        sCtx.fillStyle = "#f472b6";
+        sCtx.beginPath();
+        sCtx.arc(0, 12, 8, 0, Math.PI);
+        sCtx.fill();
+      } else {
+        // 🧸 MINI WUGGY ON PARACHUTE
+        sCtx.font = "22px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText("🪂", 0, -26);
+        sCtx.fillStyle = en.color || "#3b82f6";
+        sCtx.beginPath();
+        sCtx.arc(0, 0, 22, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.strokeStyle = "#fff";
+        sCtx.lineWidth = 2.5;
+        sCtx.stroke();
+        sCtx.fillStyle = "#fff";
+        sCtx.beginPath();
+        sCtx.arc(-7, -4, 4, 0, Math.PI * 2);
+        sCtx.arc(7, -4, 4, 0, Math.PI * 2);
+        sCtx.fill();
+      }
+
+      // Slow-Cloud Sleep Indicator if CatNap slowed them
+      if (en.slowTimer > 0) {
+        sCtx.font = "18px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText("🌙💤", 0, -56);
+      }
+
+      // Draw Clear Plushie HP Bar Above Enemy
+      const barW = en.isBoss ? 124 : 56;
+      const barH = en.isBoss ? 11 : 7;
+      const barY = en.isBoss ? -76 : -44;
+      sCtx.fillStyle = "rgba(15, 23, 42, 0.85)";
+      sCtx.fillRect(-barW / 2 - 2, barY - 2, barW + 4, barH + 4);
+      const hpRatio = Math.max(0, en.hp / en.maxHp);
+      sCtx.fillStyle = hpRatio > 0.5 ? "#4ade80" : (hpRatio > 0.25 ? "#facc15" : "#fb7185");
+      sCtx.fillRect(-barW / 2, barY, barW * hpRatio, barH);
+
+      if (en.isBoss) {
+        sCtx.fillStyle = "#fef08a";
+        sCtx.font = "bold 11px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(en.name + "  (" + Math.ceil(en.hp) + "/" + en.maxHp + " ❤️)", 0, barY - 6);
+      }
+
+      sCtx.restore();
+    }
+
+    function drawChuyuSoloPlaneAndHelpers() {
       const px = player.x;
       const py = player.y;
 
-      // Cozy Yellow Rubber-Ducky Swim Ring around the family airplane
+      // 1. Draw Active Sky Helpers (Mom SunnyFox, Dad PoppyDash, CatNap, DogDay, Hoppy, Bobby) on Chuyu's Wings!
+      activeHelpers.forEach(h => {
+        const wingOffsetX = h.slot === 0 ? -96 : 96;
+        const targetHX = px + wingOffsetX;
+        const targetHY = py + 12 + Math.sin(frameCount * 0.04 + h.slot) * 6;
+        h.x += (targetHX - h.x) * 0.08;
+        h.y += (targetHY - h.y) * 0.08;
+
+        sCtx.save();
+        // If Dad (PoppyDash), draw his signature Yellow Rubber-Ducky Swim Ring around his helper plane!
+        if (h.spec.hasDuckyRing) {
+          sCtx.strokeStyle = "#facc15";
+          sCtx.fillStyle = "rgba(250, 204, 21, 0.20)";
+          sCtx.lineWidth = 5;
+          sCtx.beginPath();
+          sCtx.arc(h.x, h.y, 34, 0, Math.PI * 2);
+          sCtx.fill();
+          sCtx.stroke();
+          sCtx.font = "16px sans-serif";
+          sCtx.textAlign = "center";
+          sCtx.fillText("🐤", h.x, h.y - 31);
+        }
+
+        // Helper Wing-Plane Wings
+        sCtx.fillStyle = h.spec.wingColor;
+        sCtx.beginPath();
+        sCtx.roundRect(h.x - 34, h.y - 8, 68, 18, 9);
+        sCtx.fill();
+        sCtx.strokeStyle = h.spec.borderColor;
+        sCtx.lineWidth = 2;
+        sCtx.stroke();
+
+        // Helper Avatar Circle (Mom / Dad photo or Smiling Critter Friend badge)
+        const imgObj = h.spec.imgKey ? spriteImgs[h.spec.imgKey] : null;
+        drawCircleAvatar(imgObj, h.x, h.y - 4, 21, h.spec.borderColor, h.spec.emoji);
+
+        // Helper Name Pill
+        sCtx.fillStyle = "rgba(15, 23, 42, 0.9)";
+        sCtx.fillRect(h.x - 38, h.y + 18, 76, 16);
+        sCtx.fillStyle = h.spec.borderColor;
+        sCtx.font = "bold 9.5px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(h.spec.name, h.x, h.y + 29);
+        sCtx.restore();
+      });
+
+      // 2. Draw CHUYU'S SOLO MAIN STARLIGHT BIPLANE (ONLY Chuyu's Critter LunaBat is on the main plane!)
       sCtx.save();
-      sCtx.strokeStyle = "#facc15";
-      sCtx.fillStyle = "rgba(250, 204, 21, 0.18)";
-      sCtx.lineWidth = 8;
+      // Cozy Starlight & Moon Bubble Shield around Chuyu's plane
+      sCtx.strokeStyle = "#c084fc";
+      sCtx.fillStyle = "rgba(168, 85, 247, 0.16)";
+      sCtx.lineWidth = 5;
       sCtx.beginPath();
-      sCtx.arc(px, py, 64, 0, Math.PI * 2);
+      sCtx.arc(px, py, 54, 0, Math.PI * 2);
       sCtx.fill();
       sCtx.stroke();
 
-      sCtx.font = "24px sans-serif";
-      sCtx.textAlign = "center";
-      sCtx.fillText("🐤", px, py - 58);
-      sCtx.fillText("🍿", px + 58, py + 8);
-      sCtx.fillText("☀️", px - 58, py + 8);
-
-      // Rounded Toy Airplane Wings
-      sCtx.fillStyle = "#f97316";
+      // Quilted Bat-Wing Purple Biplane Wings
+      sCtx.fillStyle = "#7c3aed";
       sCtx.beginPath();
-      sCtx.roundRect(px - 62, py - 14, 124, 32, 16);
+      sCtx.roundRect(px - 56, py - 12, 112, 28, 14);
       sCtx.fill();
-      sCtx.strokeStyle = "#fef08a";
+      sCtx.strokeStyle = "#fde047";
       sCtx.lineWidth = 3;
       sCtx.stroke();
 
-      // Draw Big Clear Family Portraits in Cockpit
-      if (currentPilot === 0) {
-        drawCircleAvatar(spriteImgs.dad, px - 38, py + 2, 22, "#22c55e");
-        drawCircleAvatar(spriteImgs.mom, px + 38, py + 2, 22, "#f97316");
-        drawCircleAvatar(spriteImgs.child, px, py - 10, 26, "#a855f7");
-      } else if (currentPilot === 1) {
-        drawCircleAvatar(spriteImgs.mom, px, py - 4, 30, "#f97316");
-      } else if (currentPilot === 2) {
-        drawCircleAvatar(spriteImgs.child, px, py - 4, 30, "#a855f7");
-      } else {
-        drawCircleAvatar(spriteImgs.dad, px, py - 4, 30, "#22c55e");
-      }
+      // Glowing Crescent Moon + Peace Sign Wingtips
+      sCtx.font = "20px sans-serif";
+      sCtx.textAlign = "center";
+      sCtx.fillText("🌙", px - 46, py + 7);
+      sCtx.fillText("✌️", px + 46, py + 7);
+      sCtx.fillText("⭐", px, py - 46);
+
+      // ONLY CHUYU (LunaBat) in the Main Cockpit!
+      drawCircleAvatar(spriteImgs.child, px, py - 4, 30, "#c084fc", "🦇");
+
+      // Chuyu Solo Pilot Label
+      sCtx.fillStyle = "rgba(15, 23, 42, 0.92)";
+      sCtx.fillRect(px - 52, py + 27, 104, 18);
+      sCtx.fillStyle = "#f5d0fe";
+      sCtx.font = "bold 10.5px sans-serif";
+      sCtx.textAlign = "center";
+      sCtx.fillText("🦇 CHUYU (LunaBat)", px, py + 40);
       sCtx.restore();
     }
 
@@ -841,7 +1419,7 @@
       frameCount++;
       if (calloutTimer > 0) calloutTimer--;
 
-      // Smooth, slow, gentle airplane movement
+      // Smooth, slow, gentle airplane movement for 5-year-old Chuyu
       const spd = 3.2;
       if (keys["arrowleft"] || keys["a"]) player.targetX -= spd;
       if (keys["arrowright"] || keys["d"]) player.targetX += spd;
@@ -849,16 +1427,50 @@
       if (keys["arrowdown"] || keys["s"]) player.targetY += spd;
 
       player.targetX = Math.max(70, Math.min(sCanvas.width - 70, player.targetX));
-      player.targetY = Math.max(150, Math.min(sCanvas.height - 95, player.targetY));
+      player.targetY = Math.max(220, Math.min(sCanvas.height - 95, player.targetY));
       player.x += (player.targetX - player.x) * 0.09;
       player.y += (player.targetY - player.y) * 0.09;
 
-      if (frameCount % 72 === 0) spawnPlayerBullets();
-      spawnEnemies();
+      if (gameSpeed > 0) {
+        // Chuyu + active Sky Helpers fire gentle beams every ~64 frames (~1.05s)
+        if (frameCount % 64 === 0) spawnPlayerAndHelperBullets();
+
+        // Randomly summon Mom, Dad, or a Smiling Critter friend into the sky every ~390 frames (~6.5s)!
+        if (frameCount % 390 === 0 && activeHelpers.length < 2) {
+          summonSpecificHelper("random");
+        }
+
+        // Spawn a friendly-sized Mini Wuggy parachute minion occasionally
+        if (frameCount % 220 === 0) {
+          spawnMiniWuggy();
+        }
+
+        // Ensure there is always a Poppy Playtime Ch.1 or Ch.2 Boss in the sky
+        if (frameCount % 180 === 0 && enemies.filter(e => e.isBoss).length === 0) {
+          spawnNextChapterBoss();
+        }
+      }
+
+      // Update active Sky Helpers timers
+      for (let i = activeHelpers.length - 1; i >= 0; i--) {
+        if (gameSpeed > 0) activeHelpers[i].timer--;
+        if (activeHelpers[i].timer <= 0) {
+          const leaving = activeHelpers[i];
+          floatTexts.push({
+            x: leaving.x,
+            y: leaving.y - 20,
+            text: "👋 See you soon, " + leaving.spec.shortName + "!",
+            color: "#cbd5e1",
+            life: 55
+          });
+          activeHelpers.splice(i, 1);
+          updateHud();
+        }
+      }
 
       drawBackground();
 
-      // Gentle expanding rainbow circle (instead of screen flash!)
+      // Gentle expanding Rainbow Super Team circle (zero screen flash!)
       if (rainbowWaveRadius > 0) {
         rainbowWaveRadius += 4.5;
         sCtx.save();
@@ -871,7 +1483,23 @@
         if (rainbowWaveRadius > 750) rainbowWaveRadius = 0;
       }
 
-      // Gentle upward-floating Popcorn / Peace-Hearts / Lantern Stars
+      // Draw & update Defeated Happy Sleeping Plushies floating up with Pink Ribbons
+      for (let i = tamedPlushies.length - 1; i >= 0; i--) {
+        const tp = tamedPlushies[i];
+        tp.y -= 0.55;
+        tp.life--;
+        sCtx.save();
+        sCtx.font = tp.isBoss ? "34px sans-serif" : "24px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText("🎀🧸💤", tp.x, tp.y);
+        sCtx.fillStyle = "#fbcfe8";
+        sCtx.font = "bold 12px sans-serif";
+        sCtx.fillText("Happy Plushie!", tp.x, tp.y + 20);
+        sCtx.restore();
+        if (tp.life <= 0) tamedPlushies.splice(i, 1);
+      }
+
+      // Update & Draw Chuyu's + Helpers' Upward Star/Lantern/Popcorn Beams
       for (let i = bullets.length - 1; i >= 0; i--) {
         const b = bullets[i];
         if (b.homing && enemies.length > 0) {
@@ -879,13 +1507,13 @@
           const dx = target.x - b.x;
           const dy = target.y - b.y;
           const dist = Math.hypot(dx, dy) || 1;
-          b.vx += (dx / dist) * 0.08;
-          b.vy += (dy / dist) * 0.08;
+          b.vx += (dx / dist) * 0.11;
+          b.vy += (dy / dist) * 0.11;
         }
         b.x += b.vx;
         b.y += b.vy;
 
-        sCtx.font = "26px sans-serif";
+        sCtx.font = "25px sans-serif";
         sCtx.textAlign = "center";
         sCtx.fillText(b.icon, b.x, b.y);
 
@@ -894,73 +1522,129 @@
         }
       }
 
-      // Big, slow-floating Balloons & Friendly Soap Bubbles
+      // Update & Draw Poppy Playtime Chapter 1 & Chapter 2 Bosses & Mini Wuggys
       for (let i = enemies.length - 1; i >= 0; i--) {
         const en = enemies[i];
-        en.y += en.vy;
-        en.x = en.baseX + Math.sin(frameCount * 0.015 + en.phase) * 18;
+        if (en.wobbleTimer > 0) en.wobbleTimer--;
+        if (en.slowTimer > 0) en.slowTimer--;
+        const slowMult = en.slowTimer > 0 ? 0.45 : 1.0;
 
-        sCtx.save();
-        sCtx.fillStyle = en.color;
-        sCtx.beginPath();
-        sCtx.arc(en.x, en.y, 34, 0, Math.PI * 2);
-        sCtx.fill();
-        sCtx.strokeStyle = "#fff";
-        sCtx.lineWidth = 3;
-        sCtx.stroke();
+        if (en.isBoss) {
+          // Boss glides gently into upper sky (y = 148) and sways slowly side-to-side
+          if (en.y < en.targetY) {
+            en.y += 0.65 * (gameSpeed / 0.32 || 0.5);
+          }
+          en.x = 300 + Math.sin(frameCount * 0.012 * slowMult + en.phase) * 145;
 
-        sCtx.font = "32px sans-serif";
-        sCtx.textAlign = "center";
-        sCtx.fillText(en.icon, en.x, en.y + 11);
-        sCtx.restore();
+          // Boss gently tosses a slow-drifting trouble bubble every ~210 frames (~3.5s)
+          if (gameSpeed > 0 && frameCount % 210 === 0 && enemyProjectiles.length < 2) {
+            enemyProjectiles.push({
+              x: en.x,
+              y: en.y + 36,
+              vx: (player.x - en.x) * 0.002,
+              vy: 0.68 * (gameSpeed / 0.32),
+              icon: en.tpl ? en.tpl.projIcon : "🖐️"
+            });
+          }
+        } else {
+          en.y += en.vy * slowMult;
+          en.x = en.baseX + Math.sin(frameCount * 0.015 + en.phase) * 20;
+        }
 
-        // Check if a gentle Popcorn/Star reached the Balloon
+        drawPoppyPlaytimeBoss(en);
+
+        // Check if Chuyu's or Helpers' shots hit this Poppy Playtime Bad Character
+        const hitRadius = en.isBoss ? 58 : 34;
         for (let j = bullets.length - 1; j >= 0; j--) {
           const b = bullets[j];
-          if (Math.hypot(b.x - en.x, b.y - en.y) < 42) {
+          if (Math.hypot(b.x - en.x, b.y - en.y) < hitRadius) {
+            if (b.slowsEnemy) en.slowTimer = 240;
             bullets.splice(j, 1);
-            balloonsPopped++;
-            popcornCount += 2;
-            playArcadeSound("popcorn");
-            powerups.push({
-              x: en.x, y: en.y,
-              vy: 0.48 * (gameSpeed / 0.32 || 0.5),
-              kind: en.isWater ? "ducky" : "popcorn"
-            });
-            floatTexts.push({ x: en.x, y: en.y, text: "🎈 YAY! +🍿", life: 65 });
-            enemies.splice(i, 1);
+            damageEnemy(i, b.dmg || 1, "💥 " + b.from + " Hit!");
             break;
           }
         }
 
-        // Or if the Family Plane touches the Balloon directly
-        if (enemies[i] && Math.hypot(player.x - en.x, player.y - en.y) < 68) {
-          balloonsPopped++;
-          popcornCount += 2;
-          playArcadeSound("ducky");
-          if (en.isWater) {
-            showCallout("🐤 Splash Bubble! Craig's Yellow Ducky Ring kept his skunk tail dry! 🍿");
+        // If a Mini Wuggy drifts off bottom or touches Chuyu's shield
+        if (enemies[i] && !en.isBoss) {
+          if (Math.hypot(player.x - en.x, player.y - en.y) < 62) {
+            damageEnemy(i, 99, "🛡️ Starlight Shield Bonk!");
+          } else if (en.y > sCanvas.height + 50) {
+            enemies.splice(i, 1);
           }
-          floatTexts.push({ x: en.x, y: en.y, text: "🐤 SAFE & COZY! +🍿", life: 65 });
-          enemies.splice(i, 1);
-        } else if (enemies[i] && en.y > sCanvas.height + 50) {
-          enemies.splice(i, 1);
         }
       }
 
-      // Slow-floating Popcorn & Rubber-Ducky Treats
+      // Update & Draw Slow Boss Trouble Bubbles (can be shot down by Chuyu & Helpers!)
+      for (let i = enemyProjectiles.length - 1; i >= 0; i--) {
+        const ep = enemyProjectiles[i];
+        ep.x += ep.vx;
+        ep.y += ep.vy;
+
+        sCtx.save();
+        sCtx.fillStyle = "rgba(244, 114, 182, 0.25)";
+        sCtx.strokeStyle = "#f472b6";
+        sCtx.lineWidth = 2;
+        sCtx.beginPath();
+        sCtx.arc(ep.x, ep.y, 20, 0, Math.PI * 2);
+        sCtx.fill();
+        sCtx.stroke();
+        sCtx.font = "22px sans-serif";
+        sCtx.textAlign = "center";
+        sCtx.fillText(ep.icon, ep.x, ep.y + 8);
+        sCtx.restore();
+
+        // Can Chuyu/Helper bullets zap the boss projectile out of the air? YES!
+        let zapped = false;
+        for (let j = bullets.length - 1; j >= 0; j--) {
+          if (Math.hypot(bullets[j].x - ep.x, bullets[j].y - ep.y) < 30) {
+            bullets.splice(j, 1);
+            popcornCount += 1;
+            floatTexts.push({ x: ep.x, y: ep.y, text: "✨ Blocked! +🍿", color: "#4ade80", life: 45 });
+            enemyProjectiles.splice(i, 1);
+            zapped = true;
+            break;
+          }
+        }
+        if (zapped) continue;
+
+        // If it touches Chuyu's plane, her Starlight Shield bounces it away safely (and Mom/Bobby auto-heal her!)
+        if (Math.hypot(ep.x - player.x, ep.y - player.y) < 56) {
+          enemyProjectiles.splice(i, 1);
+          playArcadeSound("ducky");
+          if (chuyuHearts > 2) chuyuHearts--;
+          floatTexts.push({ x: player.x, y: player.y - 45, text: "🛡️ Shield Bounced It! Calling Bobby to Heal!", color: "#fda4af", life: 65 });
+          if (!activeHelpers.some(h => h.spec.id === "bobby")) {
+            summonSpecificHelper("critter");
+            chuyuHearts = 5;
+          }
+          updateHud();
+        } else if (ep.y > sCanvas.height + 30) {
+          enemyProjectiles.splice(i, 1);
+        }
+      }
+
+      // Slow-floating Popcorn, Rubber-Ducky & Friend Call Whistle Treats
       for (let i = powerups.length - 1; i >= 0; i--) {
         const p = powerups[i];
         p.y += p.vy;
         sCtx.font = "28px sans-serif";
         sCtx.textAlign = "center";
-        sCtx.fillText(p.kind === "ducky" ? "🐤" : "🍿", p.x, p.y);
+        const pIcon = p.kind === "whistle" ? "📣" : (p.kind === "ducky" ? "🐤" : "🍿");
+        sCtx.fillText(pIcon, p.x, p.y);
 
         if (Math.hypot(p.x - player.x, p.y - player.y) < 65) {
           popcornCount += 3;
           playArcadeSound("popcorn");
-          floatTexts.push({ x: p.x, y: p.y, text: "🍿 YUMMY POPCORN!", life: 60 });
+          if (p.kind === "whistle") {
+            summonSpecificHelper("random");
+            floatTexts.push({ x: p.x, y: p.y, text: "📣 FRIEND WHISTLE! Helper Arrived!", color: "#4ade80", life: 65 });
+          } else {
+            chuyuHearts = Math.min(5, chuyuHearts + 1);
+            floatTexts.push({ x: p.x, y: p.y, text: "🍿 YUMMY POPCORN! +❤️", color: "#fef08a", life: 60 });
+          }
           powerups.splice(i, 1);
+          updateHud();
         } else if (p.y > sCanvas.height + 40) {
           powerups.splice(i, 1);
         }
@@ -971,36 +1655,39 @@
         const ft = floatTexts[i];
         ft.y -= 0.45;
         ft.life--;
-        sCtx.fillStyle = "#fef08a";
-        sCtx.font = "bold 16px sans-serif";
+        sCtx.fillStyle = ft.color || "#fef08a";
+        sCtx.font = "bold 14px sans-serif";
         sCtx.textAlign = "center";
         sCtx.fillText(ft.text, ft.x, ft.y);
         if (ft.life <= 0) floatTexts.splice(i, 1);
       }
 
-      drawPlayerJet();
+      drawChuyuSoloPlaneAndHelpers();
 
-      // Top Calm Header Bar
-      sCtx.fillStyle = "rgba(7, 11, 20, 0.72)";
+      // Top Calm Battle Header Bar
+      sCtx.fillStyle = "rgba(7, 11, 20, 0.78)";
       sCtx.fillRect(0, 0, sCanvas.width, 42);
       sCtx.fillStyle = "#fef08a";
-      sCtx.font = "bold 15px sans-serif";
+      sCtx.font = "bold 13.5px sans-serif";
       sCtx.textAlign = "left";
-      sCtx.fillText("🎈 Balloons: " + balloonsPopped + "   🍿 Popcorn: " + popcornCount, 16, 26);
+      sCtx.fillText("🧸 Tamed: " + bossesTamed + "   🍿 Popcorn: " + popcornCount + "   ❤️".repeat(chuyuHearts), 14, 26);
       sCtx.textAlign = "right";
-      sCtx.fillStyle = "#4ade80";
-      sCtx.fillText("🐌 5yo Gentle Mode", sCanvas.width - 16, 26);
+      sCtx.fillStyle = "#c084fc";
+      const helperTxt = activeHelpers.length > 0
+        ? "Wingmen: " + activeHelpers.map(h => h.spec.emoji).join(" ")
+        : "Solo Chuyu 🦇";
+      sCtx.fillText(helperTxt, sCanvas.width - 14, 26);
 
       if (calloutTimer > 0) {
-        sCtx.fillStyle = "rgba(15, 23, 42, 0.88)";
+        sCtx.fillStyle = "rgba(15, 23, 42, 0.90)";
         sCtx.strokeStyle = "#facc15";
         sCtx.lineWidth = 2;
-        sCtx.fillRect(24, 52, sCanvas.width - 48, 36);
-        sCtx.strokeRect(24, 52, sCanvas.width - 48, 36);
+        sCtx.fillRect(18, 48, sCanvas.width - 36, 34);
+        sCtx.strokeRect(18, 48, sCanvas.width - 36, 34);
         sCtx.fillStyle = "#fef08a";
-        sCtx.font = "bold 13px sans-serif";
+        sCtx.font = "bold 12.5px sans-serif";
         sCtx.textAlign = "center";
-        sCtx.fillText(calloutText, sCanvas.width / 2, 75);
+        sCtx.fillText(calloutText, sCanvas.width / 2, 70);
       }
 
       if (frameCount % 20 === 0) updateHud();
